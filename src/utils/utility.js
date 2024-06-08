@@ -5,6 +5,10 @@ const Utility = {
         const otp = Math.floor(1000 + Math.random() * 9000);
         return otp;
     },
+    generateUID: () => {
+        const uid = Math.floor(1000 + Math.random() * 9000);
+        return uid;
+    },
     createToken: (payload) => {
         console.log('payload to create token', payload);
         const token = jwt.sign({ name: payload.name, email: payload.email, role: payload.role,_id:payload._id }, Constant.SECRET_KEY);

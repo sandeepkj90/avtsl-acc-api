@@ -2,8 +2,10 @@ const ClientModel = require('../model/client-model');
 const ClientDAO = {
   register: (payload) => {
     console.log('data inside dao', payload);
+    let code = payload.phone.toString();
     return new ClientModel({
-      ...payload,
+      userName:`${payload.firstName.toLowerCase()}${code.slice(0,2)}${code.slice(code.length-2,code.length)}`,
+      ...payload
     }).save();
   },
   isClientExist: (payload) => {

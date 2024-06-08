@@ -2,7 +2,6 @@ const Joi = require('joi');
 const customerSchema = Joi.object({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
-  userName: Joi.string().required(),
   email: Joi.string()
     .email({
       minDomainSegments: 2,

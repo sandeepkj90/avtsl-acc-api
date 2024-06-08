@@ -1,9 +1,11 @@
 const UserModel = require('../model/user-model');
 const UserDAO = {
   register: (payload) => {
+    let code = payload.phone.toString();
     console.log('data inside dao', payload);
     return new UserModel({
-      ...payload,
+      userName:`${payload.firstName.toLowerCase()}${code.slice(0,2)}${code.slice(code.length-2,code.length)}avtsl`,
+      ...payload
     }).save();
   },
   isUserExist: (payload) => {

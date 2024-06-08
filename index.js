@@ -59,6 +59,7 @@ app.use('/srPics/:name', (req, res) => {
 });
 app.use('/users', require('./src/controller/user-controller'));
 app.use('/clients', require('./src/controller/client-controller'));
+app.use('/client-bills', require('./src/controller/client-bill-controller'));
 
 app.use('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
@@ -71,10 +72,10 @@ UserDAO.isUserExist({ userName: 'admin@avtsl', password: 'admin@123' }).then(
       UserDAO.register({
         firstName: 'Admin',
         lastName: 'Gentle',
-        userName:'admin@avtsl',
         email: 'admin@gmail.com',
         password: 'admin@123',
         role: 'ADMIN',
+        userName:"admin@avtsl",
         salary: 6000,
         address: 'INDIA',
         phone: 7878767678,

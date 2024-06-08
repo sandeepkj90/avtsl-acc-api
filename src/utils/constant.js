@@ -3,6 +3,7 @@ const Constant = {
   COLLECTION_NAME: {
     USER: 'users',
     CLIENT:'clients',
+    CLIENT_BILL:'client-bills',
     DISH: 'dishes',
     SERVICE_REQ: 'service-req',
     ORDER: 'orders',
@@ -24,6 +25,10 @@ const Constant = {
       REGISTERED: 'Client added Successfully',
       ISEXIST: 'Client already added with the same email and phone',
       },
+      CLIENT_BILL: {
+        ADDED: 'Client bill added Successfully',
+        FOUND:'Bills Found'
+        },
     COMMON: {
       FAILED: 'Query Failed',
       BAD_REQUEST: 'Invalid Payload',
