@@ -5,6 +5,9 @@ const Constant = {
     CLIENT:'clients',
     CLIENT_BILL:'client-bills',
     DISH: 'dishes',
+    SALARIES:'salaries',
+    EXPENSES:'expenses',
+    INVESTMENT:'investments',
     SERVICE_REQ: 'service-req',
     ORDER: 'orders',
   },
@@ -29,6 +32,18 @@ const Constant = {
         ADDED: 'Client bill added Successfully',
         FOUND:'Bills Found'
         },
+        SALARIES: {
+          PAID: 'Employee salary paid Successfully',
+          FOUND:'Salary Data Found'
+          },
+          EXPENSE: {
+            ADD: 'Expense added Successfully',
+            FOUND:'Expenses Data Found'
+            },
+            INVESTMENT: {
+              ADD: 'Investment added Successfully',
+              FOUND:'Investment data found.'
+              },
     COMMON: {
       FAILED: 'Query Failed',
       BAD_REQUEST: 'Invalid Payload',

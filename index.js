@@ -60,6 +60,9 @@ app.use('/srPics/:name', (req, res) => {
 app.use('/users', require('./src/controller/user-controller'));
 app.use('/clients', require('./src/controller/client-controller'));
 app.use('/client-bills', require('./src/controller/client-bill-controller'));
+app.use('/salaries', require('./src/controller/salaries-controller'));
+app.use('/expenses', require('./src/controller/expenses-controller'));
+app.use('/investments', require('./src/controller/investment-controller'));
 
 app.use('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
