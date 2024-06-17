@@ -34,6 +34,7 @@ route.get("/getClientList", (req, res) => {
   console.log("data inside controller", payloadData);
   ClientService.getClientList(payloadData)
     .then((result) => {
+      console.log("data receiveed from database-->", result);
       res
         .status(200)
         .send(CustomResponse.sendResponse(200, result.data, result.message='Data Found'));

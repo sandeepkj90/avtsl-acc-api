@@ -29,8 +29,8 @@ app.post('/upload', uploadStorage.single('file'), (req, res) => {
 app.use('/register', (req, res) => {
   res.sendFile(__dirname + '/public/register.html');
 });
-app.use('/customerHome', (req, res) => {
-  res.sendFile(__dirname + '/public/customerHome.html');
+app.use('/client', (req, res) => {
+  res.sendFile(__dirname + '/public/client.html');
 });
 app.use('/home', (req, res) => {
   res.sendFile(__dirname + '/public/home.html');
@@ -38,8 +38,8 @@ app.use('/home', (req, res) => {
 app.use('/technicianHome', (req, res) => {
   res.sendFile(__dirname + '/public/techHome.html');
 });
-app.use('/admin', (req, res) => {
-  res.sendFile(__dirname + '/public/admin.html');
+app.use('/dashboard', (req, res) => {
+  res.sendFile(__dirname + '/public/dashboard.html');
 });
 app.use('/adminOrderDetail', (req, res) => {
   res.sendFile(__dirname + '/public/orderDetailAdmin.html');

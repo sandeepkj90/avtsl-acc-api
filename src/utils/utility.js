@@ -11,7 +11,7 @@ const Utility = {
     },
     createToken: (payload) => {
         console.log('payload to create token', payload);
-        const token = jwt.sign({ name: payload.name, email: payload.email, role: payload.role,_id:payload._id }, Constant.SECRET_KEY);
+        const token = jwt.sign({ name: payload.firstName +' '+ payload.lastName, email: payload.email, role: payload.role,_id:payload._id }, Constant.SECRET_KEY);
         return token;
     },
     verifyToken:(payload)=>{
