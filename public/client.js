@@ -6,12 +6,83 @@
  getClientList()
 })();
 
+function getClientList(){
+  $('#tableList').html('');
+
+  $('#show-main-loader').css('display','block');
+  $('#showTableDesc').html('Client List');
+  getDataList('clients',null,null,function(result, error){
+    if(error)
+      console.log(error);
+    
+
+    showToastMessage(result.message,'success');
+     let str = '';
+     let count = 0;
+  for (let it of result.data) {
+    count = count+1;
+    str += `<tr>
+    <td>${count}</td>
+                  
+                  <td>${it.firstName} ${it.lastName}</td>
+                  <td>
+                  ${it.userName}</td>
+                  <td>${it.email}</td>
+          <td>${it.phone}</td>
+          <td>${it.address}</td>
+          <td>${new Date(it.date).toLocaleDateString('en-us', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          })}</td>
+                  
+                  
+              <td></td></tr>`;
+  }
+  // str +=`<tr><td>Total Amount</td><td>${response.data.totalAmount}</tr>`
+  $('#tableList').append(str);
+  $('#show-main-loader').css('display','none');
+ 
+  
+   });
+  
+ 
+
+}
+function register(){
+  // showToastMessage('Good Morning','success');
+  let obj = {
+      firstName: document.getElementById('firstName').value,
+      lastName: document.getElementById('lastName').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      address: document.getElementById('address').value,
+    };
+  $('#register-loader').css('visibility','visible');
+  postData('clients',obj,null,null,function(result, error){
+    if(error)
+      console.log(error);
+  console.log({'data received from':result});
+  $('#register-loader').css('visibility','hidden');
+  showToastMessage(result.message,'success');
+  $('#registerClient').trigger("reset");
+  $('#myModal').modal('hide');  
+  // getClientList();
+  setTimeout(()=>{
+    
+  
+
+    
+
+      
+      getClientList();
+       },2000);
+ 
+  
+   });
+}
 
 
-// function logout() {
-//   localStorage.removeItem('token');
-//   window.location.href = '/';
-// }
 
 // function assignTechy() {
 //   let obj = {
@@ -440,44 +511,4 @@
 //     },
 //   });
 // }
-function getClientList(){
-  $('#show-main-loader').css('display','block');
-  $('#showTableDesc').html('Client List');
-  getDataList('clients',null,null,function(result, error){
-    if(error)
-      console.log(error);
-    
 
-    showToastMessage(result.message,'success');
-     let str = '';
-     let count = 0;
-  for (let it of result.data) {
-    count = count+1;
-    str += `<tr>
-    <td>${count}</td>
-                  
-                  <td>${it.firstName} ${it.lastName}</td>
-                  <td>
-                  ${it.userName}</td>
-                  <td>${it.email}</td>
-          <td>${it.phone}</td>
-          <td>${it.address}</td>
-          <td>${new Date(it.date).toLocaleDateString('en-us', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-          })}</td>
-                  
-                  
-              <td></td></tr>`;
-  }
-  // str +=`<tr><td>Total Amount</td><td>${response.data.totalAmount}</tr>`
-  $('#tableList').append(str);
-  $('#show-main-loader').css('display','none');
- 
-  
-   });
-  
- 
-
-}

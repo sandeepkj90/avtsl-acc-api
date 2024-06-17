@@ -317,7 +317,7 @@ body.dark .home .text{
 }
   
 .toast{
-    display: block; /* Hidden by default */
+    visibility: hidden; /* Hidden by default */
     padding: 16px;
     top:10px;
     background-color: #48bf36;
@@ -330,11 +330,11 @@ body.dark .home .text{
     min-width: 300px;
     max-width: auto;
     white-space: nowrap;
-    transition: background-color 0.3s ease; /* Smooth background color transition */
+    /* transition: background-color 0.3s ease; Smooth background color transition */
   }
   .toast.show {
-    display: block;
-    animation: slideIn 5s forwards,slideOut 2.5s forwards 2.5s;
+    visibility: visible;
+    animation: slideIn 0.5s forwards, slideOut 0.5s forwards 3s;
   }
   @keyframes slideIn {
     from {
@@ -465,24 +465,109 @@ background-color: #fadddd;
     
   }
   
-  input {
-   
-    padding: 12px 15px; 
-    font-size: 16px;
-    letter-spacing: 1px;
-    outline: none;
-    border: none;
-    background-color: #faf7f7;
-    border-bottom: 1px #FF834F solid;
-    
-    
-  }
+  
   
   
  
   
-  input:focus {
-    width: 100%;
-    box-shadow: transparent; /* Remove the inset shadow */
-    border-bottom: 2px #e16a36 solid;
+ 
+  .modal-form{
+    padding: 10px;
   }
+  .modal-body{
+    padding: 20px;
+  }
+
+  * {box-sizing: border-box}
+
+/* Full-width input fields */
+  input[type=text],input[type=email], input[type=password],input[type=number]  {
+  padding: 20px;
+  border:none;
+  border-left:3px #434242 solid;
+  border-radius: 0px;
+  color: #262424;
+  letter-spacing: 1px;
+
+
+}
+
+input[type=text]:focus,input[type=email]:focus, input[type=password]:focus, input[type=number]:focus {
+  box-shadow: none;
+  border:none;
+  background-color: #f6faf3;
+  border-left:3px #36d874 solid;
+  border-radius: 0px;
+  color: #262424;
+}
+.invalid-feedback{
+    display:none;
+    color:#FF4949;
+}
+
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for all buttons */
+.form-button {
+  background-color: #0faf74;
+  color: white;
+  padding: 12px 15px;
+
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+  opacity: 0.9;
+}
+h4{
+    padding: 6px;
+}
+button:hover {
+  opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 12px 15px;
+  background-color: #FF4949;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: right;
+  font-size: 14px;
+  width: 20%;
+  margin-left:10px;
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 5px;
+  width: auto;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+    width: 100%;
+  }
+}
+#register-loader{
+    color: #FF4949;
+    font-size: 25px;
+    float: right;
+   margin-top:20px;
+    margin-left:10px;
+    visibility: hidden;
+}

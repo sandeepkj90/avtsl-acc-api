@@ -22,9 +22,9 @@
   
   <body>
     <i id="show-main-loader" class='bx bx-loader-alt bx-spin'></i>
-    <div class="callout toast"id="toast" >
+    <div class="callout toast" id="toast" >
         <span id="toast-message" class="spanTag">Error</span>
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+        <span class="closebtn" onclick="hideToast()">×</span>
       </div>
       
     <nav class="sidebar" >
@@ -112,7 +112,7 @@
         <div class="right">
             <img style="cursor: pointer;" id="profileImage" src="./profile_icon.jpeg" alt="" width="30" />
             <span style="color: #632828; cursor: pointer;" id="setName">ADMIN</span>
-            <!-- <span class="logout-icon" onclick="logout()"
+            <!-- <span class="logout-icon" onclick="logout()   this.parentElement.style.display='none';"
               ><i class="fa fa-sign-out" aria-hidden="true"></i
             >logout</span> -->
         </div>
@@ -123,62 +123,71 @@
         <div class="modal fade" id="myModal"  role="dialog">
           <div class="modal-dialog">
           
-            <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
                 
-                <h4 class="modal-title">Modal Header</h4>
+                <h4 class="modal-title">Client Register Form</h4>
               </div>
               <div class="modal-body">
-                <form>
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="inputEmail4">Email</label>
-                      <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                <form id='registerClient' style="border:1px solid #ccc">
+                  <div class="container">
+                    <h4>Enter the Client Detail.</h4>
+                <br/>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
+                        <div id="firstName-validation" class="invalid-feedback">
+                          The field is required.
+                        </div>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
+                        <div  id="lastName-valid" class="invalid-feedback">
+                          The field is required.
+                        </div>
+                      </div>
+                      
                     </div>
-                    <div class="form-group col-md-6">
-                      <label for="inputPassword4">Password</label>
-                      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                    <div class="form-row">
+                      
+                      <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter email">
+                        <div id="email-valid" class="invalid-feedback">
+                          The field is required.
+                        </div>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="phone">Phone</label>
+                        <input type="number" class="form-control" id="phone" placeholder="Enter phone">
+                        <div id="phone-valid" class="invalid-feedback">
+                          The field is required.
+                        </div>
+                      </div>
                     </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" placeholder="Enter address">
+                        <div id="address-valid" class="invalid-feedback">
+                          The field is required.
+                        </div>
+                      </div>
+                    </div>
+                
                   </div>
-                  <div class="form-group">
-                    <label for="inputAddress">Address</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                  </div>
-                  <div class="form-group">
-                    <label for="inputAddress2">Address 2</label>
-                    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="inputCity">City</label>
-                      <input type="text" class="form-control" id="inputCity">
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="inputState">State</label>
-                      <select id="inputState" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>...</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                      <label for="inputZip">Zip</label>
-                      <input type="text" class="form-control" id="inputZip">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="gridCheck">
-                      <label class="form-check-label" for="gridCheck">
-                        Check me out
-                      </label>
-                    </div>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Sign in</button>
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="clearfix">
+                  <i id="register-loader" class='bx bx-loader-alt bx-spin'></i>
+                  <button type="button" onclick="register()" class="signupbtn form-button">ADD</button> 
+                  <button type="button" class="cancelbtn form-button" data-dismiss="modal" onclick="closeModal()"  >CANCEL</button>
+
+                </div>
+                <!-- <button type="button" class="btn btn-primary">Sign in</button>    data-dismiss="modal" -->
               </div>
             </div>
             
