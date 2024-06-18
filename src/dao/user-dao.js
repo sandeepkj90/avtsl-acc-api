@@ -38,6 +38,7 @@ const UserDAO = {
     } else {
       obj['role'] = 'EMPLOYEE';
     }
+
     return UserModel.find(obj, { password: 0 });
   },
   approve: (payload) => {

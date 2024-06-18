@@ -31,7 +31,32 @@ const ClientService = {
       console.log('data fetched from database based on email', data);
       resolve({ data });
     });
-  }
+  },
+  deleteData: (params,body) => {
+    console.log('data inside service', params, body);
+    return new Promise(async (resolve, reject) => {
+      let data = await ClientDAO.deleteData(params,body);
+      console.log('inside service approved', data);
+      resolve({
+        status: 200,
+        data: data,
+        message: 'Client deleted successfully.',
+      });
+    });
+  },
+  
+  updateData: (params,body) => {
+    console.log('data inside service', params, body);
+    return new Promise(async (resolve, reject) => {
+      let data = await ClientDAO.updateData(params,body);
+      console.log('inside service approved', data);
+      resolve({
+        status: 200,
+        data: data,
+        message: 'Client updated successfully.',
+      });
+    });
+  },
   
 };
 module.exports = ClientService;

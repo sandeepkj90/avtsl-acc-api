@@ -18,6 +18,7 @@ const SalariesDAO = {
   },
   getSalariesByUserName: (payload) => {
     let obj = payload || {};
+    obj.active =true;
     return SalariesModel.find(obj,{_id:0});
   }
 };

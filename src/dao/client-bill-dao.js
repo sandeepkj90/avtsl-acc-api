@@ -17,6 +17,7 @@ const ClientBillDAO = {
   },
   getBillByUserName: (payload) => {
     let obj = payload || {};
+    obj.active =true;
     return ClientBillModel.find(obj,{_id:0});
   },
   billPaid: (payload) => {

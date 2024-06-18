@@ -7,7 +7,23 @@
           }
           case 'CLIENT': {
             window.location.href ='/client'
-            
+            break;
+          }
+          case 'INCOME': {
+            window.location.href ='/investment'
+            break;
+          }
+          case 'BILLS': {
+            window.location.href ='/bill'
+            break;
+          }
+          case 'EXPENSE': {
+            window.location.href ='/expense'
+            break;
+          }
+          case 'SALARY': {
+            window.location.href ='/salary'
+            break;
           }
         }
       }

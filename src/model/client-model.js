@@ -39,6 +39,10 @@ const ClientSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  active:{
+    type:Boolean,
+    default:true
+  }
 });
 
 module.exports = mongoose.model(Constant.COLLECTION_NAME.CLIENT, ClientSchema);

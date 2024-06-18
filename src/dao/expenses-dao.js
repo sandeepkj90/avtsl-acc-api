@@ -11,6 +11,7 @@ const ExpensesDAO = {
   },
   getExpensesByCondition: (payload) => {
     let obj = payload || {};
+    obj.active =true;
     return ExpensesModel.find(obj,{_id:0});
   },
 };

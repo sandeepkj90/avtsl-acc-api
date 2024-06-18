@@ -330,6 +330,7 @@ body.dark .home .text{
     min-width: 300px;
     max-width: auto;
     white-space: nowrap;
+    box-shadow: 1px 7px 8px rgba(0, 0, 0, 0.3);
     /* transition: background-color 0.3s ease; Smooth background color transition */
   }
   .toast.show {
@@ -570,4 +571,152 @@ button:hover {
    margin-top:20px;
     margin-left:10px;
     visibility: hidden;
+}
+
+
+.toast-confirm{
+  visibility: hidden; /* Hidden by default */
+  padding: 16px;
+  top:30px;
+  background-color: #48bf36;
+  position: fixed;
+  right: -300px; /* Start off-screen to the right */
+  z-index: 1;
+  opacity: 0;
+  min-width: 300px;
+  max-width: auto;
+  white-space: nowrap;
+  
+  box-shadow: 1px 7px 8px rgba(0, 0, 0, 0.3);
+
+
+  /* transition: background-color 0.3s ease; Smooth background color transition */
+}
+.toast-confirm.show-confirm {
+  visibility: visible;
+  animation: slideIn 0.5s forwards, slideOut 0.5s forwards 3s;
+}
+@keyframes slideIn {
+  from {
+    right: -300px;
+    opacity: 0;
+  }
+  to {
+    right: 20px;
+    opacity: 1;
+  }
+}
+@keyframes slideOut {
+  from {
+    right: 20px;
+    opacity: 1;
+  }
+  to {
+    right: -300px;
+    opacity: 0;
+  }
+}
+
+
+
+
+.closebtn-confirm {
+    top: 2px;
+    color: #FF4949;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0;
+    padding: 0px;
+    position: absolute;
+    right: 13px;
+}
+
+
+.spanTag-confirm{
+font-size: 17px;
+  color: #FF4949;
+}
+.confirm-design{
+  float:right;
+  padding:5px;
+  border:none;
+  background-color:#FF4949 ;
+  color:#FFF;
+  cursor: pointer;
+  margin-left: 15px;
+  
+}
+.shadow:hover{
+  box-shadow: 1px 7px 8px rgba(0, 0, 0, 0.3);
+}
+
+.confirm-btn-design{
+  position: absolute;
+   bottom: -15px;
+    right: 1px;
+    padding: 11px;
+}
+.hr-style{
+  height: 1px;
+  color: #ed1d61;
+  background: #ed1d61;
+  font-size: 0;
+  border: 0;
+  visibility: hidden;
+}
+.confirm-success{
+  background-color: #48bf36;
+
+}
+#delete-loader{
+  color: #48bf36;
+    font-size: 17px;
+    float: right;
+    margin-top: 7px;
+    margin-left: 3px;
+    visibility: hidden;
+}
+#status,#status:focus{
+  border:0;
+  border-radius: 10%;
+  font-weight: bold;
+
+
+}
+.error-message{
+  visibility: hidden; /* Hidden by default */
+  padding: 10px;
+  top:18%;
+  position: fixed;
+  right: 3%; /* Start off-screen to the right */
+  z-index: 1;
+  min-width: 200px;
+  max-width: auto;
+  white-space: nowrap;
+  background-color:#FF4949;
+  color:#fff;
+  box-shadow: 1px 7px 8px rgba(0, 0, 0, 0.3);
+  border-left:3px #b70c0c solid;
+    opacity: 0;
+    /* animation: slideIn 0.5s forwards, slideOut 0.5s forwards 3s; */
+}
+@keyframes slideInError {
+  from {
+    right: -60px;
+    opacity: 0;
+  }
+  to {
+    right: 35px;
+    opacity: 1;
+  }
+}
+@keyframes slideOutError {
+  from {
+    right: 20px;
+    opacity: 1;
+  }
+  to {
+    right: -60px;
+    opacity: 0;
+  }
 }

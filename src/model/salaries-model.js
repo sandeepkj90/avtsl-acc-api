@@ -52,6 +52,10 @@ const SalariesSchema = new Schema({
     type: String,
     enum: ["PENDING", "PAID"],
     default: "PAID",
+  },
+  active:{
+    type:Boolean,
+    default:true
   }
 });
 

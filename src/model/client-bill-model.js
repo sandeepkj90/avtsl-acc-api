@@ -36,6 +36,10 @@ const ClientBillSchema = new Schema({
     type: String,
     enum: ["PENDING", "PAID"],
     default: "PENDING",
+  },
+  active:{
+    type:Boolean,
+    default:true
   }
 });
 

@@ -11,6 +11,7 @@ const InvestmentsDAO = {
   },
   getInvestmentsByCondition: (payload) => {
     let obj = payload || {};
+    obj.active =true;
     return InvestmentsModel.find(obj,{_id:0});
   },
 };

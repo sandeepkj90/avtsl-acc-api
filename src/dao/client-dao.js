@@ -16,7 +16,20 @@ const ClientDAO = {
   },
   getClientList: (payload) => {
     let obj = payload || {};
+    
     return ClientModel.find(obj,{_id:0});
-  }
+  },
+  deleteData: (params,body) => {
+    return ClientModel.updateOne(
+      { userName: params.userName },
+      { $set: body }
+    );
+  },
+  updateData: (params,body) => {
+    return ClientModel.updateOne(
+      { userName: params.userName },
+      { $set: body }
+    );
+  },
 };
 module.exports = ClientDAO;
