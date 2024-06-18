@@ -27,8 +27,6 @@ route.post("/register", (req, res) => {
     });
 });
 
-
-
 route.get("/getClientList", (req, res) => {
   let payloadData = req.query;
   console.log("data inside controller", payloadData);
@@ -37,7 +35,13 @@ route.get("/getClientList", (req, res) => {
       console.log("data receiveed from database-->", result);
       res
         .status(200)
-        .send(CustomResponse.sendResponse(200, result.data, result.message='Data Found'));
+        .send(
+          CustomResponse.sendResponse(
+            200,
+            result.data,
+            (result.message = "Data Found")
+          )
+        );
     })
     .catch((error) => {
       res
@@ -51,8 +55,8 @@ route.get("/getClientList", (req, res) => {
 route.patch("/deleteData/:userName", (req, res) => {
   let params = req.params;
   let body = req.body;
-  console.log("data inside controller", params,body);
-  ClientService.deleteData(params,body)
+  console.log("data inside controller", params, body);
+  ClientService.deleteData(params, body)
     .then((result) => {
       console.log("result=============", result);
       res
@@ -76,8 +80,8 @@ route.patch("/deleteData/:userName", (req, res) => {
 route.patch("/updateData/:userName", (req, res) => {
   let params = req.params;
   let body = req.body;
-  console.log("data inside controller", params,body);
-  ClientService.updateData(params,body)
+  console.log("data inside controller", params, body);
+  ClientService.updateData(params, body)
     .then((result) => {
       console.log("result=============", result);
       res
@@ -98,6 +102,5 @@ route.patch("/updateData/:userName", (req, res) => {
         );
     });
 });
-
 
 module.exports = route;

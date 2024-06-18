@@ -1,10 +1,10 @@
-const SalariesDAO = require('../dao/salaries-dao');
-const Constant = require('../utils/constant');
+const SalariesDAO = require("../dao/salaries-dao");
+const Constant = require("../utils/constant");
 const SalariesService = {
-    salaryPaid: (payload) => {
-    console.log('data inside service', payload);
+  salaryPaid: (payload) => {
+    console.log("data inside service", payload);
     return new Promise(async (resolve, reject) => {
-        SalariesDAO.salaryPaid(payload)
+      SalariesDAO.salaryPaid(payload)
         .then((result) => {
           resolve({
             status: 201,
@@ -18,9 +18,8 @@ const SalariesService = {
     });
   },
   getSalariesByUserName: (payload) => {
-    console.log('data inside service', payload);
-    return new Promise( (resolve, reject) => {
-
+    console.log("data inside service", payload);
+    return new Promise((resolve, reject) => {
       SalariesDAO.getSalariesByUserName(payload)
         .then((result) => {
           resolve({
@@ -34,6 +33,5 @@ const SalariesService = {
         });
     });
   },
-  
 };
 module.exports = SalariesService;

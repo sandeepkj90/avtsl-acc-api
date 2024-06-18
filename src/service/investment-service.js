@@ -1,10 +1,10 @@
-const InvestmentsDAO = require('../dao/investment-dao');
-const Constant = require('../utils/constant');
+const InvestmentsDAO = require("../dao/investment-dao");
+const Constant = require("../utils/constant");
 const InvestmentsService = {
-    investmentAdd: (payload) => {
-    console.log('data inside service', payload);
+  investmentAdd: (payload) => {
+    console.log("data inside service", payload);
     return new Promise(async (resolve, reject) => {
-        InvestmentsDAO.investmentAdd(payload)
+      InvestmentsDAO.investmentAdd(payload)
         .then((result) => {
           resolve({
             status: 201,
@@ -18,9 +18,8 @@ const InvestmentsService = {
     });
   },
   getInvestmentsByCondition: (payload) => {
-    console.log('data inside service', payload);
-    return new Promise( (resolve, reject) => {
-
+    console.log("data inside service", payload);
+    return new Promise((resolve, reject) => {
       InvestmentsDAO.getInvestmentsByCondition(payload)
         .then((result) => {
           resolve({
@@ -33,7 +32,6 @@ const InvestmentsService = {
           reject({ status: 500, message: error });
         });
     });
-  }
-  
+  },
 };
 module.exports = InvestmentsService;

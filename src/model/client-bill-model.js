@@ -5,16 +5,16 @@ const Schema = mongoose.Schema;
 const ClientBillSchema = new Schema({
   clientId: {
     type: Schema.Types.ObjectId,
-    ref: 'clients',
+    ref: "clients",
     require: true,
   },
-  userName:{
+  userName: {
     type: String,
     require: true,
   },
-  billId:{
-    type:String,
-    require:true
+  billId: {
+    type: String,
+    require: true,
   },
   email: {
     type: String,
@@ -37,10 +37,13 @@ const ClientBillSchema = new Schema({
     enum: ["PENDING", "PAID"],
     default: "PENDING",
   },
-  active:{
-    type:Boolean,
-    default:true
-  }
+  active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
-module.exports = mongoose.model(Constant.COLLECTION_NAME.CLIENT_BILL, ClientBillSchema);
+module.exports = mongoose.model(
+  Constant.COLLECTION_NAME.CLIENT_BILL,
+  ClientBillSchema
+);

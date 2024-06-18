@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     type: String,
     require: true,
   },
-  userName:{
+  userName: {
     type: String,
     require: true,
   },
@@ -35,10 +35,10 @@ const UserSchema = new Schema({
     type: String,
     enum: ["ADMIN", "EMPLOYEE", "OPERATOR"],
     default: "EMPLOYEE",
-  }, 
-  salary:{
-    type:Number,
-    required:true
+  },
+  salary: {
+    type: Number,
+    required: true,
   },
   otp: {
     type: Number,
@@ -67,10 +67,10 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
-  active:{
-    type:Boolean,
-    default:true
-  }
+  active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 module.exports = mongoose.model(Constant.COLLECTION_NAME.USER, UserSchema);

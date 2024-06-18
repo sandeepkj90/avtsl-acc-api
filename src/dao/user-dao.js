@@ -1,16 +1,19 @@
-const UserModel = require('../model/user-model');
+const UserModel = require("../model/user-model");
 const UserDAO = {
   register: (payload) => {
     let code = payload.phone.toString();
-    console.log('data inside dao', payload);
+    console.log("data inside dao", payload);
     return new UserModel({
-      userName:`${payload.firstName.toLowerCase()}${code.slice(0,2)}${code.slice(code.length-2,code.length)}avtsl`,
-      ...payload
+      userName: `${payload.firstName.toLowerCase()}${code.slice(
+        0,
+        2
+      )}${code.slice(code.length - 2, code.length)}avtsl`,
+      ...payload,
     }).save();
   },
   isUserExist: (payload) => {
     return UserModel.findOne({
-      userName: payload.userName
+      userName: payload.userName,
     });
   },
   getByCondition: (payload) => {
@@ -36,7 +39,7 @@ const UserDAO = {
     if (payload.role) {
       obj = { $ne: { role: payload.role } };
     } else {
-      obj['role'] = 'EMPLOYEE';
+      obj["role"] = "EMPLOYEE";
     }
 
     return UserModel.find(obj, { password: 0 });
@@ -44,14 +47,20 @@ const UserDAO = {
   approve: (payload) => {
     return UserModel.updateOne(
       { userName: payload.userName },
-      { $set: { status: 'APPROVED' } }
+      { $set: { status: "APPROVED" } }
     );
   },
   getTechnician: () => {
     return UserModel.find(
-      { role: 'TECHNICIAN', status: 'APPROVED' },
+      { role: "TECHNICIAN", status: "APPROVED" },
       { _id: 1, firstName: 1, phone: 1, skills: 1 }
     );
+  },
+  deleteData: (params, body) => {
+    return UserModel.updateOne({ userName: params.userName }, { $set: body });
+  },
+  updateData: (params, body) => {
+    return UserModel.updateOne({ userName: params.userName }, { $set: body });
   },
 };
 module.exports = UserDAO;

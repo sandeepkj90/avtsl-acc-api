@@ -3,31 +3,31 @@ const Constant = require("../utils/constant");
 const Schema = mongoose.Schema;
 
 const ExpensesSchema = new Schema({
-userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'users',
-        require: true,
-     },
-  expenseId:{
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "users",
+    require: true,
+  },
+  expenseId: {
     type: String,
     require: true,
   },
-  type:{
+  type: {
     type: String,
-    enum: ["GENERAL", "TRAVEL","FOOD","STATIONARY","TOOLS"],
+    enum: ["GENERAL", "TRAVEL", "FOOD", "STATIONARY", "TOOLS"],
     default: "GENERAL",
   },
-  userName:{
+  userName: {
     type: String,
     require: true,
   },
-  amount:{
-        type:Number,
-        require:true
+  amount: {
+    type: Number,
+    require: true,
   },
-  description:{
-    type:String,
-        require:true
+  description: {
+    type: String,
+    require: true,
   },
   month: {
     type: String,
@@ -37,10 +37,13 @@ userId: {
     type: Date,
     default: Date.now(),
   },
-  active:{
-    type:Boolean,
-    default:true
-  }
+  active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
-module.exports = mongoose.model(Constant.COLLECTION_NAME.EXPENSES, ExpensesSchema);
+module.exports = mongoose.model(
+  Constant.COLLECTION_NAME.EXPENSES,
+  ExpensesSchema
+);

@@ -27,8 +27,6 @@ route.post("/addBill", (req, res) => {
     });
 });
 
-
-
 route.get("/getBillByUserName", (req, res) => {
   let payloadData = req.query;
   console.log("data inside controller", payloadData);
@@ -36,7 +34,13 @@ route.get("/getBillByUserName", (req, res) => {
     .then((result) => {
       res
         .status(200)
-        .send(CustomResponse.sendResponse(200, result.data, result.message='Data Found'));
+        .send(
+          CustomResponse.sendResponse(
+            200,
+            result.data,
+            (result.message = "Data Found")
+          )
+        );
     })
     .catch((error) => {
       res
@@ -47,30 +51,28 @@ route.get("/getBillByUserName", (req, res) => {
     });
 });
 route.patch("/billPaid/:billId", (req, res) => {
-    let payloadData = req.params;
-    console.log("data inside controller", payloadData);
-    ClientBillService.billPaid(payloadData)
-      .then((result) => {
-        console.log("result=============", result);
-        res
-          .status(result.status)
-          .send(
-            CustomResponse.sendResponse(
-              result.status,
-              result.data,
-              result.message
-            )
-          );
-      })
-      .catch((error) => {
-        res
-          .status(error.status)
-          .send(
-            CustomResponse.sendResponse(error.status, error.data, error.message)
-          );
-      });
-  });
-
-
+  let payloadData = req.params;
+  console.log("data inside controller", payloadData);
+  ClientBillService.billPaid(payloadData)
+    .then((result) => {
+      console.log("result=============", result);
+      res
+        .status(result.status)
+        .send(
+          CustomResponse.sendResponse(
+            result.status,
+            result.data,
+            result.message
+          )
+        );
+    })
+    .catch((error) => {
+      res
+        .status(error.status)
+        .send(
+          CustomResponse.sendResponse(error.status, error.data, error.message)
+        );
+    });
+});
 
 module.exports = route;

@@ -1,12 +1,12 @@
-const UserDAO = require('../dao/user-dao');
-const Constant = require('../utils/constant');
-const Utility = require('../utils/utility');
+const UserDAO = require("../dao/user-dao");
+const Constant = require("../utils/constant");
+const Utility = require("../utils/utility");
 const UserService = {
   register: (payload) => {
-    console.log('data inside service', payload);
+    console.log("data inside service", payload);
     return new Promise(async (resolve, reject) => {
       let data = await UserDAO.isUserExist(payload);
-      console.log('data fetched from database based on email', data);
+      console.log("data fetched from database based on email", data);
       if (data) {
         reject({ status: 406, message: Constant.MESSAGE.USER.ISEXIST });
       } else {
@@ -25,16 +25,16 @@ const UserService = {
     });
   },
   login: (payload) => {
-    console.log('data inside service', payload);
+    console.log("data inside service", payload);
     return new Promise(async (resolve, reject) => {
       let responseData = await UserDAO.isUserExist(payload);
-      console.log('data fetched from database based on email', responseData);
+      console.log("data fetched from database based on email", responseData);
       if (!responseData) {
         reject({ status: 406, message: Constant.MESSAGE.USER.NOT_EXIST });
       } else {
         if (responseData.password == payload.password) {
           //   delete responseData.password;
-          if (responseData.status == 'INPROGRESS')
+          if (responseData.status == "INPROGRESS")
             return reject({
               status: 406,
               message: Constant.MESSAGE.USER.APPROVAL,
@@ -46,7 +46,7 @@ const UserService = {
               role: responseData.role,
               token: Utility.createToken(responseData),
               firstName: responseData.firstName,
-              userName:responseData.userName,
+              userName: responseData.userName,
               _id: responseData._id,
               profilePic: responseData.profilePic,
             },
@@ -61,18 +61,18 @@ const UserService = {
     });
   },
   getEmployeeList: (payload) => {
-    console.log('data inside service', payload);
+    console.log("data inside service", payload);
     return new Promise(async (resolve, reject) => {
       let data = await UserDAO.getEmployeeList(payload);
-      console.log('data fetched from database based on email', data);
+      console.log("data fetched from database based on email", data);
       resolve({ data });
     });
   },
   resetPassword: (payload) => {
-    console.log('data inside service', payload);
+    console.log("data inside service", payload);
     return new Promise(async (resolve, reject) => {
       let data = await UserDAO.verifyOTP(payload);
-      console.log('data fetched from database based on email', data);
+      console.log("data fetched from database based on email", data);
       if (!data) {
         reject({ status: 406, message: Constant.MESSAGE.USER.INVALID_OTP });
       } else {
@@ -92,15 +92,40 @@ const UserService = {
       }
     });
   },
-  approve: (payload) => {
-    console.log('data inside service', payload);
+  deleteData: (params, body) => {
+    console.log("data inside service", params, body);
     return new Promise(async (resolve, reject) => {
-      let data = await UserDAO.approve(payload);
-      console.log('inside service approved', data);
+      let data = await UserDAO.deleteData(params, body);
+      console.log("inside service approved", data);
       resolve({
         status: 200,
         data: data,
-        message: 'APPROVED',
+        message: "Employee deleted successfully.",
+      });
+    });
+  },
+
+  updateData: (params, body) => {
+    console.log("data inside service", params, body);
+    return new Promise(async (resolve, reject) => {
+      let data = await UserDAO.updateData(params, body);
+      console.log("inside service approved", data);
+      resolve({
+        status: 200,
+        data: data,
+        message: "Employee updated successfully.",
+      });
+    });
+  },
+  approve: (payload) => {
+    console.log("data inside service", payload);
+    return new Promise(async (resolve, reject) => {
+      let data = await UserDAO.approve(payload);
+      console.log("inside service approved", data);
+      resolve({
+        status: 200,
+        data: data,
+        message: "APPROVED",
       });
     });
   },

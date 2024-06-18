@@ -27,8 +27,6 @@ route.post("/expenseAdd", (req, res) => {
     });
 });
 
-
-
 route.get("/getExpensesByCondition", (req, res) => {
   let payloadData = req.query;
   console.log("data inside controller", payloadData);
@@ -36,7 +34,13 @@ route.get("/getExpensesByCondition", (req, res) => {
     .then((result) => {
       res
         .status(200)
-        .send(CustomResponse.sendResponse(200, result.data, result.message='Data Found'));
+        .send(
+          CustomResponse.sendResponse(
+            200,
+            result.data,
+            (result.message = "Data Found")
+          )
+        );
     })
     .catch((error) => {
       res
@@ -46,7 +50,5 @@ route.get("/getExpensesByCondition", (req, res) => {
         );
     });
 });
-
-
 
 module.exports = route;

@@ -70,7 +70,13 @@ route.get("/getEmployeeList", (req, res) => {
     .then((result) => {
       res
         .status(200)
-        .send(CustomResponse.sendResponse(200, result.data, result.message='Data Found'));
+        .send(
+          CustomResponse.sendResponse(
+            200,
+            result.data,
+            (result.message = "Data Found")
+          )
+        );
     })
     .catch((error) => {
       res
@@ -176,4 +182,54 @@ route.get("/getTechnician", (req, res) => {
     });
 });
 
+route.patch("/deleteData/:userName", (req, res) => {
+  let params = req.params;
+  let body = req.body;
+  console.log("data inside controller", params, body);
+  UserService.deleteData(params, body)
+    .then((result) => {
+      console.log("result=============", result);
+      res
+        .status(result.status)
+        .send(
+          CustomResponse.sendResponse(
+            result.status,
+            result.data,
+            result.message
+          )
+        );
+    })
+    .catch((error) => {
+      res
+        .status(error.status)
+        .send(
+          CustomResponse.sendResponse(error.status, error.data, error.message)
+        );
+    });
+});
+route.patch("/updateData/:userName", (req, res) => {
+  let params = req.params;
+  let body = req.body;
+  console.log("data inside controller", params, body);
+  UserService.updateData(params, body)
+    .then((result) => {
+      console.log("result=============", result);
+      res
+        .status(result.status)
+        .send(
+          CustomResponse.sendResponse(
+            result.status,
+            result.data,
+            result.message
+          )
+        );
+    })
+    .catch((error) => {
+      res
+        .status(error.status)
+        .send(
+          CustomResponse.sendResponse(error.status, error.data, error.message)
+        );
+    });
+});
 module.exports = route;

@@ -1,12 +1,9 @@
 // console.log('admin page js');
 (function () {
-  if (!localStorage.getItem('token')) window.location.href = '/login';
+  if (!localStorage.getItem("token")) window.location.href = "/login";
   //   $('#setName').text(`Hi ${localStorage.getItem('name')}`);
- showToastMessage('Welcome to HomePage','info',true);
- 
+  showToastMessage("Welcome to HomePage", "info", true);
 })();
-
-
 
 // function logout() {
 //   localStorage.removeItem('token');
@@ -138,13 +135,12 @@
 //                             <td><img src=uploads/${
 //                               it.pics
 //                             } alt='not found' width='50px' height='50px'/></td>
-                            
+
 //                     <td>${it.status}</td>
 //                     <td>${it.assignedTo?.firstName || ''} ${
 //                 it.assignedTo?.lastName || ''
 //               }</td>
-                            
-                            
+
 //                         <td>${
 //                           it.status == 'PENDING'
 //                             ? `<span style="cursor:pointer;color:#2a59a2; font-size:16px;"onclick="changeStatus(\'${it._id}\','PENDING')"><i class="fa fa-check-square-o" aria-hidden="true"></i> accept</span>`
@@ -412,9 +408,7 @@
 //                 <td>${it.profilePic}</td>
 //                 <td>${it.skills.join(' ')}</td>
 //                 <td>${it.status}</td>
-                
-                        
-                        
+
 //                     <td>${
 //                       it.status == 'INPROGRESS'
 //                         ? `<span style="cursor:pointer;color:#2a59a2; font-size:16px;" onclick="approveUser(\'${it._id}\')"><i class="fa fa-check" aria-hidden="true"></i></span>`

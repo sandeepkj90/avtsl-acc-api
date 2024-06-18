@@ -7,7 +7,7 @@ const ClientSchema = new Schema({
     type: String,
     require: true,
   },
-  userName:{
+  userName: {
     type: String,
     require: true,
   },
@@ -39,10 +39,10 @@ const ClientSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
-  active:{
-    type:Boolean,
-    default:true
-  }
+  active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 module.exports = mongoose.model(Constant.COLLECTION_NAME.CLIENT, ClientSchema);
