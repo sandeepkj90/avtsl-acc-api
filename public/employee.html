@@ -26,6 +26,17 @@
         <span id="toast-message" class="spanTag">Error</span>
         <span class="closebtn" onclick="hideToast()">×</span>
       </div>
+      <div class="callout toast-confirm" id="toast-confirm">
+        <span id="toast-confirm-message" class="spanTag-confirm">Error</span>
+        
+        <span id="dataToDelete" style="visibility: hidden;">Not Found</span>
+        <br/>
+        <br/>
+        <hr class="hr-style">
+        <p class="confirm-btn-design"><i id="delete-loader" class='bx bx-loader-alt bx-spin'></i><button  class="confirm-design confirm-success shadow" onclick="deleteData()">CONFIRM</button>
+        <button class="confirm-design shadow" onclick="hideConfirmToast()">CANCEL</button></p>
+
+      </div>
       
     <nav class="sidebar" >
       <header class="header-design">
@@ -56,22 +67,22 @@
                     </a>
                 </li>
                 <li class="nav-link">
-                  <a  class="menu-isActive" >
-                      <i class='bx bxs-user-detail icon menu-isActive' ></i>
-                      <span class="text nav-text menu-isActive">Client</span>
-                      
-                  </a>
-              </li>
+                    <a onclick="navigateTo('CLIENT')">
+                      <i class='bx bxs-user-detail icon'></i>
+                        <span class="text nav-text">Client</span>
+                    </a>
+                </li>
                   <li class="nav-link">
                     <a onclick="navigateTo('BILLS')">
                       <i class='bx bx-list-check icon'></i>
                         <span class="text nav-text">Bills</span>
                     </a>
                 </li>
-                  <li class="nav-link">
-                    <a onclick="navigateTo('EMPLOYEE')">
-                      <i class='bx bxs-user-pin icon'></i>
-                        <span class="text nav-text">Employee</span>
+                <li class="nav-link">
+                    <a  class="menu-isActive" >
+                        <i class='bx bxs-user-pin icon menu-isActive' ></i>
+                        <span class="text nav-text menu-isActive">Employees</span>
+                        
                     </a>
                 </li>
                   <li class="nav-link">
@@ -132,21 +143,18 @@
                 <form id='registerClient' style="border:1px solid #ccc">
                   <div class="container">
                     <h4>Enter the Client Detail.</h4>
+                    <span class="error-message" id="display-message">default message</span>
                 <br/>
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label for="firstName">First Name</label>
                         <input type="text" autocomplete="off" class="form-control" id="firstName" placeholder="Enter first name" >
-                        <div id="firstName-validation" class="invalid-feedback">
-                          The field is required.
-                        </div>
+                        
                       </div>
                       <div class="form-group col-md-6">
                         <label for="lastName">Last Name</label>
                         <input type="text" autocomplete="off" class="form-control" id="lastName" placeholder="Enter last name">
-                        <div  id="lastName-valid" class="invalid-feedback">
-                          The field is required.
-                        </div>
+                        
                       </div>
                       
                     </div>
@@ -155,25 +163,29 @@
                       <div class="form-group col-md-6">
                         <label for="email">Email</label>
                         <input type="email" autocomplete="off" class="form-control" id="email" placeholder="Enter email">
-                        <div id="email-valid" class="invalid-feedback">
-                          The field is required.
-                        </div>
+                        
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-5">
                         <label for="phone">Phone</label>
                         <input type="number"  autocomplete="off" class="form-control" id="phone" placeholder="Enter phone">
-                        <div id="phone-valid" class="invalid-feedback">
-                          The field is required.
-                        </div>
+                        
+                      </div>
+                      <div class="form-group col-md-1">
+                        <label for="status">Active</label>
+                        <input type="text"  autocomplete="off" class="form-control" id="status">
+                        
                       </div>
                     </div>
                     <div class="form-row">
-                      <div class="form-group col-md-12">
+                      <div class="form-group col-md-8">
                         <label for="address">Address</label>
                         <input type="text" autocomplete="false" class="form-control" id="address" placeholder="Enter address">
-                        <div id="address-valid" class="invalid-feedback">
-                          The field is required.
-                        </div>
+                        
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="userName">User Name</label>
+                        <input type="text" autocomplete="false" class="form-control" id="userName" readonly>
+                        
                       </div>
                     </div>
                 
@@ -183,7 +195,8 @@
               <div class="modal-footer">
                 <div class="clearfix">
                   <i id="register-loader" class='bx bx-loader-alt bx-spin'></i>
-                  <button type="button" onclick="register()" class="signupbtn form-button">ADD</button> 
+                  <button type="button" id="addbtn" onclick="register()" class="signupbtn form-button">ADD</button> 
+                  <button type="button" id="updatebtn" onclick="updateData()" class="signupbtn form-button" style="display: none;">UPDATE</button> 
                   <button type="button" class="cancelbtn form-button" data-dismiss="modal" onclick="closeModal()"  >CANCEL</button>
 
                 </div>
@@ -194,7 +207,7 @@
           </div>
         </div>
         <span id="showTableDesc">List</span>
-        <button type="button" class="add-btn" data-toggle="modal" data-target="#myModal">ADD</button>
+        <button type="button" class="add-btn" data-toggle="modal" data-target="#myModal" onclick="showModal(['firstName','lastName','email','password','phone','status','userName'])">ADD</button>
         
         <div class="table-responsive">          
           <table class="table table-hover">
@@ -206,6 +219,7 @@
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Address</th>
+                <th>Status</th>
                 <th>Created At</th>
                 <th>Action</th>
               </tr>
@@ -218,7 +232,7 @@
     </div>
     
       <script src="./common.js"></script>
-      <script src="./client.js"></script>
+      <script src="./employee.js"></script>
       <script src="./navigation.js"></script>
   </body>
 </html>

@@ -25,6 +25,14 @@
             window.location.href ='/salary'
             break;
           }
+          case 'EMPLOYEE': {
+            window.location.href ='/employee'
+            break;
+          }
+          case 'REPORT': {
+            window.location.href ='/report'
+            break;
+          }
         }
       }
       function logout() {

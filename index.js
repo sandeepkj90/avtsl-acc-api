@@ -26,29 +26,29 @@ app.post('/upload', uploadStorage.single('file'), (req, res) => {
   res.send({ data: req.file });
 });
 
-app.use('/register', (req, res) => {
-  res.sendFile(__dirname + '/public/register.html');
+app.use('/bill', (req, res) => {
+  res.sendFile(__dirname + '/public/bill.html');
 });
 app.use('/client', (req, res) => {
   res.sendFile(__dirname + '/public/client.html');
 });
-app.use('/home', (req, res) => {
-  res.sendFile(__dirname + '/public/home.html');
+app.use('/salary', (req, res) => {
+  res.sendFile(__dirname + '/public/salary.html');
 });
-app.use('/technicianHome', (req, res) => {
-  res.sendFile(__dirname + '/public/techHome.html');
+app.use('/expense', (req, res) => {
+  res.sendFile(__dirname + '/public/expense.html');
 });
 app.use('/dashboard', (req, res) => {
   res.sendFile(__dirname + '/public/dashboard.html');
 });
-app.use('/adminOrderDetail', (req, res) => {
-  res.sendFile(__dirname + '/public/orderDetailAdmin.html');
+app.use('/report', (req, res) => {
+  res.sendFile(__dirname + '/public/report.html');
 });
-app.use('/customerDishDetail', (req, res) => {
-  res.sendFile(__dirname + '/public/customerDishDetail.html');
+app.use('/employee', (req, res) => {
+  res.sendFile(__dirname + '/public/employee.html');
 });
-app.use('/dishDetail', (req, res) => {
-  res.sendFile(__dirname + '/public/dishDetail.html');
+app.use('/investment', (req, res) => {
+  res.sendFile(__dirname + '/public/investment.html');
 });
 app.use('/cartDetail', (req, res) => {
   res.sendFile(__dirname + '/public/cart.html');
