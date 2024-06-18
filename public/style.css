@@ -578,7 +578,7 @@ button:hover {
   visibility: hidden; /* Hidden by default */
   padding: 16px;
   top:30px;
-  background-color: #48bf36;
+  border-left:4px #b70c0c solid;
   position: fixed;
   right: -300px; /* Start off-screen to the right */
   z-index: 1;

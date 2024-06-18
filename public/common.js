@@ -4,6 +4,12 @@ let backgrndColor ={
     info:'#2793dc',
     warning:'#d7dd27'
 }
+let borderLeftColor={
+  error:'4px #b70c0c solid;',
+  success:'4px #208211 solid',
+    info:'4px #0f5787 solid',
+    warning:'4px #a2a718 solid'
+}
 let api_url_list={
   get:{
     clients:'/clients/getClientList',
@@ -37,6 +43,7 @@ function hideToast(){
 }
 function showToastMessage(message, color){
         $('#toast').css('background-color',backgrndColor[color]);
+        $('#toast').css('border-left',borderLeftColor[color]);
         $('#toast').css('visibility', 'visible');
         $('#toast-message').text(message);
   
@@ -70,6 +77,8 @@ function hideConfirmToast(){
 function showToastConfirmMessage(message, color, userId){
   $('#toast-confirm').css('background-color','#FFF');
   $('#toast-confirm').css('color',backgrndColor[color]);
+  $('#toast-confirm').css('border-left',borderLeftColor[color]);
+
  $('#dataToDelete').html(userId);
   $('#toast-confirm').css('visibility', 'visible');
   $('#toast-confirm-message').text(message);
