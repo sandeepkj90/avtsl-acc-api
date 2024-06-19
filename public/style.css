@@ -61,13 +61,14 @@
 
 .sidebar .text,
 .sidebar .icon {
-  color: #ff4949;
+  color: #413e3e;
   transition: all 0.3s ease;
 }
 
 .nav-link {
   cursor: pointer;
 }
+
 .sidebar .text {
   font-size: 17px;
   font-weight: 500;
@@ -75,8 +76,8 @@
   opacity: 1;
 }
 .sidebar .menu-isActive {
-  color: #fff;
-  background-color: #ff4949;
+  color: #ff4949;
+  background-color: #f4f2f2;
 }
 .sidebar.close .text {
   opacity: 0;
@@ -100,7 +101,6 @@ header .image-text .name {
   font-size: 18px;
   font-weight: 600;
 }
-
 header .image-text .profession {
   font-size: 16px;
   margin-top: -2px;
@@ -178,12 +178,16 @@ body.dark .sidebar header .toggle {
 }
 
 .sidebar li a:hover {
-  background-color: #ff4949;
+  background-color: #f4f2f2;
 }
 .sidebar li a:hover .icon,
 .sidebar li a:hover .text {
-  color: #fff;
+  color: #3b3838;
 }
+.sidebar .isActive .menu-isActive:hover .menu-isActive {
+  color: #ff4949;
+}
+
 body.dark .sidebar li a:hover .icon,
 body.dark .sidebar li a:hover .text {
   color: #ff4949;
@@ -304,6 +308,8 @@ body.dark .home .text {
   margin-left: 260px;
   margin-top: 11px;
   margin-right: 8px;
+  background-color: #f4f2f2;
+  min-height: 100%;
 }
 
 .toast {
@@ -387,8 +393,9 @@ body.dark .home .text {
 }
 .table-responsive {
   margin-top: 80px;
-  padding: 6px;
-  box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
+  padding: 3px;
+  background-color: #fff;
+  /* box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19); */
 }
 .thead-style {
   padding: 20px;
@@ -396,11 +403,21 @@ body.dark .home .text {
   /* opacity: 0.8; */
   color: #fff;
 }
+.table {
+  margin-bottom: 0px;
+}
 .table th,
 .table td {
   padding: 12px 15px; /* Padding for cells */
   font-size: 16px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 1px;
+}
+.table > tbody > tr > td {
+  padding: 14px;
+}
+.table > thead > tr > th {
+  padding: 12px;
 }
 #show-main-loader {
   position: absolute;
@@ -728,4 +745,14 @@ button:hover {
   border-top: 0.5px #e4e2e2 solid;
   border-bottom: 0.5px #e4e2e2 solid;
   border-left: 3px #36d874 solid;
+}
+.isActive {
+  border-left: 4px #c32323 solid;
+}
+.bottom-content {
+  margin-bottom: 5%;
+}
+.bottom-content li a:hover .icon,
+.bottom-content li a:hover .text {
+  color: #ff4949;
 }
