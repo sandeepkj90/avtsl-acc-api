@@ -80,15 +80,19 @@ function getEmployeeList() {
 
   $("#show-main-loader").css("display", "block");
   $("#showTableDesc").html("Employee List");
-  getDataList("employees", null, null, function (result, error) {
-    if (error) console.log(error);
+  getDataList(
+    "employees",
+    null,
+    { role: "OPERATOR" },
+    function (result, error) {
+      if (error) console.log(error);
 
-    showToastMessage(result.message, "success");
-    let str = "";
-    let count = 0;
-    for (let it of result.data) {
-      count = count + 1;
-      str += `<tr>
+      showToastMessage(result.message, "success");
+      let str = "";
+      let count = 0;
+      for (let it of result.data) {
+        count = count + 1;
+        str += `<tr>
       <td>${count}</td>
                     
                     <td>${it.firstName} ${it.lastName}</td>
@@ -111,22 +115,23 @@ function getEmployeeList() {
                     
                     
                 <td>${
-                  it.active
+                  it.active && it.role != "SUPER_ADMIN"
                     ? `<span style="cursor:pointer;color:#FF4949;padding:5px;margin:5px; font-size:16px;"onclick="showToastConfirmMessage('Are you sure want to delete ?','error','${it.userName}');"><i class="fa fa-trash-o" aria-hidden="true"></i></span>`
                     : `<span style="cursor:pointer;color:#48bf36;padding:5px;margin:5px; font-size:16px;visibility:hidden" onclick=""><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>`
                 }<span style="cursor:pointer;color:#48bf36;padding:5px;margin:5px;font-size:16px;" onclick="showData('${
-        it.firstName
-      }','${it.lastName}','${it.userName}','${it.email}','${it.salary}','${
-        it.phone
-      }','${it.address}',${
-        it.active
-      })"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          it.firstName
+        }','${it.lastName}','${it.userName}','${it.email}','${it.salary}','${
+          it.phone
+        }','${it.address}',${
+          it.active
+        })"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </span></td></tr>`;
+      }
+      // str +=`<tr><td>Total Amount</td><td>${response.data.totalAmount}</tr>`
+      $("#tableList").append(str);
+      $("#show-main-loader").css("display", "none");
     }
-    // str +=`<tr><td>Total Amount</td><td>${response.data.totalAmount}</tr>`
-    $("#tableList").append(str);
-    $("#show-main-loader").css("display", "none");
-  });
+  );
 }
 function deleteData() {
   $("#delete-loader").css("visibility", "visible");

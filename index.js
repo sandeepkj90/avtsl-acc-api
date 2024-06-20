@@ -79,7 +79,7 @@ UserDAO.isUserExist({
       lastName: "Reddy",
       email: "sivareddyega@gmail.com",
       password: "siva@avtsl",
-      role: "ADMIN",
+      role: "SUPER-ADMIN",
       userName: "sivareddy@avtsl",
       salary: 6000,
       address: "INDIA",

@@ -33,7 +33,7 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ["ADMIN", "EMPLOYEE", "OPERATOR"],
+    enum: ["SUPER_ADMIN", "ADMIN", "EMPLOYEE", "OPERATOR"],
     default: "EMPLOYEE",
   },
   salary: {
