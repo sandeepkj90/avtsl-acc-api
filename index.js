@@ -73,16 +73,15 @@ UserDAO.isUserExist({ userName: "admin@avtsl", password: "admin@123" }).then(
     if (result) console.log("Admin already registered");
     else {
       UserDAO.register({
-        firstName: "Admin",
-        lastName: "Gentle",
-        email: "admin@gmail.com",
-        password: "admin@123",
+        firstName: "Siva",
+        lastName: "Reddy",
+        email: "sivareddyega@gmail.com",
+        password: "siva@avtsl",
         role: "ADMIN",
-        userName: "admin@avtsl",
+        userName: "sivareddy@avtsl",
         salary: 6000,
         address: "INDIA",
         phone: 7878767678,
-        status: "APPROVED",
         profilePic: "profile_icon.jpeg",
       }).then((response) => {
         console.log("Admin Registered successfully");

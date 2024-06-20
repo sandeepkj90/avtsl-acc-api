@@ -193,116 +193,130 @@ function showModalWithSelect(data) {
   $("#updatebtn").css("display", "none");
   $("#show-main-loader").css("display", "block");
 
-  getDataList("employees", null, null, function (result, error) {
-    if (error) console.log(error);
-    $("#getSelectList").empty();
-    $("#type").empty();
-    $("#year").empty();
-    $("#month").empty();
-    $("#day").empty();
-    $("#employeeData").html("");
-    // showToastMessage(result.message,'success');
-    empList = result.data;
-    $("#getSelectList").append(
-      $('<option style="display:none">').val("").text("Select Employee")
-    );
-    //  let optionList =[{name:'john', age:23, userName:'abc123'},{name:'harry', age:23, userName:'def234'}]
-    for (let i of result.data) {
-      optionText = i.firstName + " " + i.lastName;
-      optionValue = i.userName;
+  getDataList(
+    "employees",
+    null,
+    { role: "OPERATOR" },
+    function (result, error) {
+      if (error) console.log(error);
+      $("#getSelectList").empty();
+      $("#type").empty();
+      $("#year").empty();
+      $("#month").empty();
+      $("#day").empty();
+      $("#employeeData").html("");
+      $("#employeeData").html(`<tr>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+  </tr>`);
+      // showToastMessage(result.message,'success');
+      empList = result.data;
       $("#getSelectList").append(
-        $("<option>").val(optionValue).text(optionText)
+        $('<option style="display:none">').val("").text("Select Employee")
       );
+      //  let optionList =[{name:'john', age:23, userName:'abc123'},{name:'harry', age:23, userName:'def234'}]
+      for (let i of result.data) {
+        optionText = i.firstName + " " + i.lastName + " - " + i.role;
+        optionValue = i.userName;
+        $("#getSelectList").append(
+          $("<option>").val(optionValue).text(optionText)
+        );
+      }
+
+      let typeList = ["NORMAL", "ADVANCE"];
+      $("#type").append(
+        $('<option style="display:none">').val("").text("Select Salary Type")
+      );
+      for (let item of typeList) {
+        $("#type").append($("<option>").val(item).text(item));
+      }
+      $("#type").val(typeList[0]);
+
+      let todayDate = new Date()
+        .toLocaleDateString("en-us", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+        .replace(",", "")
+        .split(" ");
+      console.log(todayDate);
+
+      let monthList = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      $("#month").append(
+        $('<option style="display:none">').val("").text("Select Month")
+      );
+      for (let item of monthList) {
+        $("#month").append($(`<option>`).val(item).text(item));
+      }
+      $("#month").val(todayDate[0]);
+
+      let yearList = [
+        "2023",
+        "2024",
+        "2025",
+        "2026",
+        "2027",
+        "2028",
+        "2029",
+        "2030",
+        "2031",
+        "2032",
+        "2033",
+        "2034",
+        "2035",
+        "2036",
+        "2037",
+        "2038",
+        "2039",
+        "2040",
+      ];
+      $("#year").append(
+        $('<option style="display:none">').val("").text("Select Year")
+      );
+      for (let item of yearList) {
+        let selectedYear = item == todayDate[2] ? true : false;
+        $("#year").append($(`<option>`).val(item).text(item));
+      }
+      $("#year").val(todayDate[2]);
+
+      let dayList = [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+      ];
+      $("#day").append(
+        $('<option style="display:none">').val("").text("Select Day")
+      );
+      for (let item of dayList) {
+        let option = item < 10 ? `0${item}` : item;
+
+        $("#day").append($(`<option>`).val(option).text(option));
+      }
+      $("#day").val(todayDate[1]);
+
+      // str +=`<tr><td>Total Amount</td><td>${response.data.totalAmount}</tr>`
+      // $('#tableList').append(str);
+      $("#show-main-loader").css("display", "none");
     }
-
-    let typeList = ["NORMAL", "ADVANCE"];
-    $("#type").append(
-      $('<option style="display:none">').val("").text("Select Salary Type")
-    );
-    for (let item of typeList) {
-      $("#type").append($("<option>").val(item).text(item));
-    }
-    $("#type").val(typeList[0]);
-
-    let todayDate = new Date()
-      .toLocaleDateString("en-us", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-      .replace(",", "")
-      .split(" ");
-    console.log(todayDate);
-
-    let monthList = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    $("#month").append(
-      $('<option style="display:none">').val("").text("Select Month")
-    );
-    for (let item of monthList) {
-      $("#month").append($(`<option>`).val(item).text(item));
-    }
-    $("#month").val(todayDate[0]);
-
-    let yearList = [
-      "2023",
-      "2024",
-      "2025",
-      "2026",
-      "2027",
-      "2028",
-      "2029",
-      "2030",
-      "2031",
-      "2032",
-      "2033",
-      "2034",
-      "2035",
-      "2036",
-      "2037",
-      "2038",
-      "2039",
-      "2040",
-    ];
-    $("#year").append(
-      $('<option style="display:none">').val("").text("Select Year")
-    );
-    for (let item of yearList) {
-      let selectedYear = item == todayDate[2] ? true : false;
-      $("#year").append($(`<option>`).val(item).text(item));
-    }
-    $("#year").val(todayDate[2]);
-
-    let dayList = [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-      22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
-    ];
-    $("#day").append(
-      $('<option style="display:none">').val("").text("Select Day")
-    );
-    for (let item of dayList) {
-      let option = item < 10 ? `0${item}` : item;
-
-      $("#day").append($(`<option>`).val(option).text(option));
-    }
-    $("#day").val(todayDate[1]);
-
-    // str +=`<tr><td>Total Amount</td><td>${response.data.totalAmount}</tr>`
-    // $('#tableList').append(str);
-    $("#show-main-loader").css("display", "none");
-  });
+  );
 
   $("#getSelectList").on("change", function () {
     let data = $("#getSelectList").val();

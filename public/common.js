@@ -39,6 +39,15 @@ let api_url_list = {
     salaries: "/salaries/salaryPaid",
   },
 };
+function getQueryData(obj) {
+  let str = "?";
+  for (let item in obj) {
+    str += `${item}=${obj[item]}&`;
+  }
+  let finalQuery = str.replace(/&$/, "").replace(/ /g, "%20");
+
+  return finalQuery;
+}
 function hideToast() {
   $("#toast").css("animation", "slideOut 0.6s forwards");
 }
@@ -100,9 +109,13 @@ function closeModal() {
 
 // }
 function getDataList(url, params, query, callback) {
+  let path = api_url_list.get[url];
+  if (params) path += `/${params}`;
+  if (query) path += getQueryData(query);
+
   $.ajax({
     method: "GET",
-    url: api_url_list.get[url],
+    url: path,
     contentType: "application/json",
     headers: {
       "Access-Control-Allow-Origin": "*",

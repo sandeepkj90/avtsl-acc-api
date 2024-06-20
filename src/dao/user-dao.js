@@ -37,7 +37,7 @@ const UserDAO = {
   getEmployeeList: (payload) => {
     let obj = {};
     if (payload.role) {
-      obj = { $ne: { role: payload.role } };
+      obj = { role: { $ne: payload.role } };
     } else {
       obj["role"] = "EMPLOYEE";
     }
