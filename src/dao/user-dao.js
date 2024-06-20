@@ -35,13 +35,13 @@ const UserDAO = {
     );
   },
   getEmployeeList: (payload) => {
-    let obj = {};
+    let obj = payload || {};
     if (payload.role) {
-      obj = { role: { $ne: payload.role } };
+      obj.role = { $ne: payload.role };
     } else {
       obj["role"] = "EMPLOYEE";
     }
-
+    console.log(obj);
     return UserModel.find(obj, { password: 0 });
   },
   approve: (payload) => {

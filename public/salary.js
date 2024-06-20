@@ -196,7 +196,7 @@ function showModalWithSelect(data) {
   getDataList(
     "employees",
     null,
-    { role: "OPERATOR" },
+    { role: "OPERATOR", active: true },
     function (result, error) {
       if (error) console.log(error);
       $("#getSelectList").empty();
