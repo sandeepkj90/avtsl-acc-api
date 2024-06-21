@@ -3,11 +3,14 @@
 })();
 
 function login() {
-  $("#show-loader").css("visibility", "visible");
   let obj = {
     userName: document.getElementById("userName").value,
     password: document.getElementById("password").value,
   };
+  let isFormValid = formValidation(obj);
+  if (!isFormValid) return false;
+  $("#show-loader").css("visibility", "visible");
+
   for (let i in obj) {
     if (obj[i] == "" || obj[i] == []) {
       $(`#${i}`).css("border", "1px red solid");
@@ -65,7 +68,7 @@ function login() {
       console.log("error", error);
       //let data = JSON.stringify(error.responseJSON.message.message));
 
-      showToastMessage(error, "#48bf36");
+      showToastMessage(error?.responseJSON?.message, "#48bf36");
 
       $("#show-loader").css("visibility", "hidden");
       setTimeout(() => {

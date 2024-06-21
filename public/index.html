@@ -404,6 +404,43 @@
       background-color: #f6faf3;
       border-left: 3px #36d874 solid;
     }
+    .error-message {
+      visibility: visible; /* Hidden by default */
+      padding: 10px;
+      top: 10%;
+      position: absolute;
+      right: 3%; /* Start off-screen to the right */
+      z-index: 1;
+      min-width: 200px;
+      max-width: auto;
+      white-space: nowrap;
+      background-color: #ff4949;
+      color: #fff;
+      box-shadow: 1px 7px 8px rgba(0, 0, 0, 0.3);
+      border-left: 3px #b70c0c solid;
+      opacity: 0;
+      /* animation: slideIn 0.5s forwards, slideOut 0.5s forwards 3s; */
+    }
+    @keyframes slideInError {
+      from {
+        right: -60px;
+        opacity: 0;
+      }
+      to {
+        right: 35px;
+        opacity: 1;
+      }
+    }
+    @keyframes slideOutError {
+      from {
+        right: 20px;
+        opacity: 1;
+      }
+      to {
+        right: -60px;
+        opacity: 0;
+      }
+    }
   </style>
 
   <body>
@@ -416,6 +453,9 @@
     <div class="container" id="container">
       <div class="form-container sign-in-container">
         <form>
+          <span class="error-message" id="display-message"
+            >default message</span
+          >
           <h1>Sign in</h1>
           <div class="social-container">
             <a href="#" class="social-fb"><i class="fab fa-facebook-f"></i></a>

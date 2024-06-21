@@ -39,7 +39,8 @@ route.get("/getClientList", (req, res) => {
           CustomResponse.sendResponse(
             200,
             result.data,
-            (result.message = "Data Found")
+            (result.message =
+              result.data.length > 0 ? "Data Found" : "No Data Found")
           )
         );
     })
