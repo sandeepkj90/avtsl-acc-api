@@ -159,6 +159,8 @@
                   <!-- <h4>Enter the Employee Salary Detail.</h4> -->
                   <span class="error-message" id="display-message"
                     >default message</span
+                  ><span class="error-calc-message" id="display-calc-message"
+                    >default message</span
                   >
                   <br />
                   <div class="form-row">
@@ -166,7 +168,7 @@
                       <label for="firstName">Employee List</label>
                       <select
                         class="form-control select-design"
-                        id="getSelectList"
+                        id="selectEmployee"
                       ></select>
                     </div>
                   </div>
@@ -290,7 +292,7 @@
                   type="button"
                   class="cancelbtn form-button"
                   data-dismiss="modal"
-                  onclick="closeModal()"
+                  onclick="closeSalaryModal()"
                 >
                   CANCEL
                 </button>

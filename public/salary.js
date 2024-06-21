@@ -1,4 +1,15 @@
 // console.log('admin page js');
+let selectedEmp = {};
+let empList = [];
+let todayDate = new Date()
+  .toLocaleDateString("en-us", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })
+  .replace(",", "")
+  .split(" ");
+// console.log(todayDate);
 (function () {
   if (!localStorage.getItem("token")) window.location.href = "/login";
   //   $('#setName').text(`Hi ${localStorage.getItem('name')}`);
@@ -146,31 +157,35 @@ function deleteData() {
     }, 2000);
   });
 }
+
 function register() {
   // showToastMessage('Good Morning','success');
-  let status = document.getElementById("status").value;
-  let active = "";
-  if (status == "T" || status == "t") {
-    active = true;
-  } else if (status == "F" || status == "f") {
-    active = false;
-  } else {
-    active = true;
-  }
   let obj = {
-    firstName: document.getElementById("firstName").value,
-    lastName: document.getElementById("lastName").value,
-    email: document.getElementById("email").value,
-    phone: document.getElementById("phone").value,
-    address: document.getElementById("address").value,
-    active,
+    selectEmployee: selectedEmp?.userName || "",
+    living: document.getElementById("living").value,
+    food: document.getElementById("food").value,
+    rent: document.getElementById("rent").value,
+    // userId: selectedEmp._id,
+    // userName: selectedEmp.userName,
   };
   let isFormValid = formValidation(obj);
   if (!isFormValid) return false;
 
   $("#register-loader").css("visibility", "visible");
-
-  postData("clients", obj, null, null, function (result, error) {
+  let payload = {
+    amount: {
+      living: document.getElementById("living").value,
+      food: document.getElementById("food").value,
+      rent: document.getElementById("rent").value,
+    },
+    year: document.getElementById("year").value,
+    month: document.getElementById("month").value,
+    day: document.getElementById("day").value,
+    type: document.getElementById("type").value,
+    userId: selectedEmp._id,
+    userName: selectedEmp.userName,
+  };
+  postData("salaries", payload, null, null, function (result, error) {
     if (error) console.log(error);
     console.log({ "data received from": result });
     $("#register-loader").css("visibility", "hidden");
@@ -184,7 +199,80 @@ function register() {
   });
 }
 
-let empList = [];
+$("#living").on("keyup", function (e) {
+  calcSalaryRemaining(
+    $("#living").val(),
+    $("#food").val(),
+    $("#rent").val(),
+    e,
+    selectedEmp.salary
+  );
+  // let totalPaid =
+  //   parseInt($("#living").val() || 0) +
+  //   parseInt($("#food").val() || 0) +
+  //   parseInt($("#rent").val() || 0);
+  // console.log("totalpaid--", totalPaid);
+  // if (e.keyCode != 8) {
+  //   setTimeout(() => {
+  //     let leftAmount = selectedEmp.salary - totalPaid;
+  //     if (leftAmount != selectedEmp.salary)
+  //       showErrorMessage(
+  //         `${leftAmount} out of ${selectedEmp.salary} remaining.`,
+  //         "info"
+  //       );
+  //   }, 1200);
+  // }
+});
+$("#rent").on("keyup", function (e) {
+  calcSalaryRemaining(
+    $("#living").val(),
+    $("#food").val(),
+    $("#rent").val(),
+    e,
+    selectedEmp.salary
+  );
+
+  // let totalPaid =
+  //   parseInt($("#living").val() || 0) +
+  //   parseInt($("#food").val() || 0) +
+  //   parseInt($("#rent").val() || 0);
+  // console.log("totalpaid--", totalPaid);
+  // if (e.keyCode != 8) {
+  //   setTimeout(() => {
+  //     let leftAmount = selectedEmp.salary - totalPaid;
+  //     if (leftAmount != selectedEmp.salary)
+  //       showErrorMessage(
+  //         `${leftAmount} out of ${selectedEmp.salary} remaining.`,
+  //         "info"
+  //       );
+  //   }, 1200);
+  // }
+});
+$("#food").on("keyup", function (e) {
+  calcSalaryRemaining(
+    $("#living").val(),
+    $("#food").val(),
+    $("#rent").val(),
+    e,
+    selectedEmp.salary
+  );
+  // let totalPaid =
+  //   parseInt($("#living").val() || 0) +
+  //   parseInt($("#food").val() || 0) +
+  //   parseInt($("#rent").val() || 0);
+  // console.log("totalpaid--", totalPaid);
+  // if (e.keyCode != 8) {
+  //   setTimeout(() => {
+  //     let leftAmount = selectedEmp.salary - totalPaid;
+  //     if (leftAmount != selectedEmp.salary)
+  //       showErrorMessage(
+  //         `${leftAmount} out of ${selectedEmp.salary} remaining.`,
+  //         "info"
+  //       );
+  //   }, 1200);
+  // }
+});
+
 function showModalWithSelect(data) {
   for (let i of data) {
     $(`#${i}`).css("border-left", "3px #434242 solid");
@@ -199,7 +287,7 @@ function showModalWithSelect(data) {
     { role: "OPERATOR", active: true },
     function (result, error) {
       if (error) console.log(error);
-      $("#getSelectList").empty();
+      $("#selectEmployee").empty();
       $("#type").empty();
       $("#year").empty();
       $("#month").empty();
@@ -216,18 +304,20 @@ function showModalWithSelect(data) {
   </tr>`);
       // showToastMessage(result.message,'success');
       empList = result.data;
-      $("#getSelectList").append(
+      $("#selectEmployee").append(
         $('<option style="display:none">').val("").text("Select Employee")
       );
       //  let optionList =[{name:'john', age:23, userName:'abc123'},{name:'harry', age:23, userName:'def234'}]
       for (let i of result.data) {
         optionText = i.firstName + " " + i.lastName + " - " + i.role;
         optionValue = i.userName;
-        $("#getSelectList").append(
+        $("#selectEmployee").append(
           $("<option>").val(optionValue).text(optionText)
         );
       }
-
+      $("#rent").prop("readonly", true);
+      $("#living").prop("readonly", true);
+      $("#food").prop("readonly", true);
       let typeList = ["NORMAL", "ADVANCE"];
       $("#type").append(
         $('<option style="display:none">').val("").text("Select Salary Type")
@@ -236,16 +326,6 @@ function showModalWithSelect(data) {
         $("#type").append($("<option>").val(item).text(item));
       }
       $("#type").val(typeList[0]);
-
-      let todayDate = new Date()
-        .toLocaleDateString("en-us", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })
-        .replace(",", "")
-        .split(" ");
-      console.log(todayDate);
 
       let monthList = [
         "January",
@@ -318,26 +398,40 @@ function showModalWithSelect(data) {
     }
   );
 
-  $("#getSelectList").on("change", function () {
-    let data = $("#getSelectList").val();
-    let empData = empList.find((item) => item.userName == data);
-    console.log(empData);
+  $("#selectEmployee").on("change", function () {
+    let data = $("#selectEmployee").val();
+    selectedEmp = empList.find((item) => item.userName == data);
+    // console.log(empData);
     $("#employeeData").html("");
     $("#employeeData").append(`<tr>
                    
-                   <td>${empData.firstName} ${empData.lastName}</td>
+                   <td>${selectedEmp.firstName} ${selectedEmp.lastName}</td>
                    <td>
-                   ${empData.userName}</td>
-                   <td>${empData.email}</td>
-                   <td>${empData.salary}</td>
-           <td>${empData.phone}</td>
-           <td>${empData.address}</td>
+                   ${selectedEmp.userName}</td>
+                   <td>${selectedEmp.email}</td>
+                   <td>${selectedEmp.salary}</td>
+           <td>${selectedEmp.phone}</td>
+           <td>${selectedEmp.address}</td>
            <td>${
-             empData.active
+             selectedEmp.active
                ? '<span style="color:#48bf36; font-size:16px;text-align:center;"onclick=""><i class="fa fa-circle" aria-hidden="true"></i></span>'
                : '<span style="color:#FF4949; font-size:16px;text-align:center;" onclick=""><i class="fa fa-circle" aria-hidden="true"></i></span>'
            }</td>
              
                </tr>`);
+    $("#rent").prop("readonly", false);
+    $("#living").prop("readonly", false);
+    $("#food").prop("readonly", false);
   });
+}
+
+function closeSalaryModal() {
+  $("#salaryPaid").trigger("reset");
+  $("#display-message").css("visibility", "hidden");
+  $("#display-calc-message").css("visibility", "hidden");
+  selectedEmp = {};
+  $("#type").val("NORMAL");
+  $("#month").val(todayDate[0]);
+  $("#year").val(todayDate[2]);
+  $("#day").val(todayDate[1]);
 }

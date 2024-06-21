@@ -603,3 +603,9 @@ function register() {
 //     },
 //   });
 // }
+function closeClientModal() {
+  $("#registerClient").trigger("reset");
+  $("#status").css("color", backgrndColor["success"]);
+  $("#status").val("T");
+  $("#display-message").css("visibility", "hidden");
+}

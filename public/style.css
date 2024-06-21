@@ -697,6 +697,21 @@ button:hover {
   opacity: 0;
   /* animation: slideIn 0.5s forwards, slideOut 0.5s forwards 3s; */
 }
+.error-calc-message {
+  visibility: hidden; /* Hidden by default */
+  padding: 10px;
+  top: 18%;
+  position: fixed;
+  right: 3%; /* Start off-screen to the right */
+  z-index: 1;
+  min-width: 200px;
+  max-width: auto;
+  white-space: nowrap;
+  box-shadow: 1px 7px 8px rgba(0, 0, 0, 0.3);
+  border-left: 3px #194997 solid;
+  opacity: 0;
+  /* animation: slideIn 0.5s forwards, slideOut 0.5s forwards 3s; */
+}
 @keyframes slideInError {
   from {
     right: -60px;

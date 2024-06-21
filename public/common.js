@@ -2,13 +2,13 @@ let backgrndColor = {
   error: "#FF4949",
   success: "#48bf36",
   info: "#2793dc",
-  warning: "#d7dd27",
+  warning: "#f3a827",
 };
 let borderLeftColor = {
   error: "4px #b70c0c solid;",
   success: "4px #208211 solid",
   info: "4px #0f5787 solid",
-  warning: "4px #a2a718 solid",
+  warning: "4px #b3750b solid",
 };
 let api_url_list = {
   get: {
@@ -65,18 +65,22 @@ function showToastMessage(message, color) {
   }, 2000);
 }
 function hideErrorMessage() {
-  $("#display-message").css("animation", "slideOutError 0.6s forwards");
+  $("#display-message").css("animation", `slideOutError 0.8s forwards`);
 }
-function showErrorMessage(message, color) {
+function showErrorMessage(message, color, slideOutTime = 2000) {
+  $("#display-message").css("visibility", "visible");
+  $("#display-message").css("background-color", backgrndColor[color]);
+  $("#display-message").css("border-left", borderLeftColor[color]);
   $("#display-message").css("visibility", "visible");
   $("#display-message").text(message);
 
   $("#display-message").css("animation", "");
-  $("#display-message").css("animation", "slideInError 0.6s forwards");
+
+  $("#display-message").css("animation", `slideInError 0.8s forwards`);
 
   setTimeout(function () {
     hideErrorMessage();
-  }, 2000);
+  }, slideOutTime);
 }
 function hideConfirmToast() {
   $("#toast-confirm").css("animation", "slideOut 0.6s forwards");
@@ -98,12 +102,7 @@ function showToastConfirmMessage(message, color, userId) {
     hideToast();
   }, 2000);
 }
-function closeModal() {
-  $("#registerClient").trigger("reset");
-  $("#status").css("color", backgrndColor["success"]);
-  $("#status").val("T");
-  $("#display-message").css("visibility", "hidden");
-}
+
 
 // function getDataList(){
 
@@ -254,4 +253,28 @@ function showModal(data) {
   $("#updatebtn").css("display", "none");
   $("#status").css("color", backgrndColor["success"]);
   $("#status").val("T");
+}
+
+function calcSalaryRemaining(inp1, inp2, inp3, event, salary) {
+  let totalPaid =
+    parseInt(inp1 || 0) + parseInt(inp2 || 0) + parseInt(inp3 || 0);
+  console.log("totalpaid--", totalPaid);
+  // if (event.keyCode != 8) {
+  setTimeout(() => {
+    let leftAmount = salary - totalPaid;
+    if (totalPaid <= salary)
+      showErrorMessage(
+        `Remaining: ${leftAmount} out of ${salary} salary. `,
+        "info",
+        3000
+      );
+    else if (totalPaid > salary)
+      showErrorMessage(
+        `Warning !! ( ${-leftAmount} ) more than salary.`,
+        "warning",
+        5000
+      );
+  }, 1200);
+
+  // }
 }

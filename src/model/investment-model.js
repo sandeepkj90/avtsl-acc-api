@@ -24,6 +24,14 @@ const InvestmentsSchema = new Schema({
     type: String,
     default: "",
   },
+  year: {
+    type: String,
+    default: "",
+  },
+  day: {
+    type: String,
+    default: "",
+  },
   date: {
     type: Date,
     default: Date.now(),
