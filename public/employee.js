@@ -87,7 +87,8 @@ function getEmployeeList() {
     function (result, error) {
       if (error) console.log(error);
 
-      showToastMessage(result.message, "success");
+      if (result.data.length == 0) showToastMessage(result.message, "info");
+
       let str = "";
       let count = 0;
       for (let it of result.data) {

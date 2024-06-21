@@ -68,7 +68,7 @@ function login() {
       console.log("error", error);
       //let data = JSON.stringify(error.responseJSON.message.message));
 
-      showToastMessage(error?.responseJSON?.message, "#48bf36");
+      showToastMessage(error?.responseJSON?.message, "error");
 
       $("#show-loader").css("visibility", "hidden");
       setTimeout(() => {

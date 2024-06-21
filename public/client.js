@@ -92,7 +92,7 @@ function getClientList() {
       }, 3000);
     }
 
-    if (result.data.length == 0) showToastMessage(result.message, "error");
+    if (result.data.length == 0) showToastMessage(result.message, "info");
     let str = "";
     let count = 0;
     for (let it of result.data) {
