@@ -619,3 +619,8 @@ function register() {
 //     },
 //   });
 // }
+
+function closeEmployeeModal() {
+  $("#registerClient").trigger("reset");
+  $("#display-message").css("visibility", "hidden");
+}

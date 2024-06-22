@@ -1,4 +1,6 @@
 const express = require("express");
+require("dotenv").config();
+
 const app = express();
 
 const Constant = require("./src/utils/constant");
@@ -10,7 +12,8 @@ const path = require("path");
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("public"));
-
+// const dotenv = require("dotenv");
+// console.log(process.env.MONGODB_URL);
 require("./database");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

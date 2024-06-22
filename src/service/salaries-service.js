@@ -33,5 +33,30 @@ const SalariesService = {
         });
     });
   },
+  deleteData: (params, body) => {
+    console.log("data inside service", params, body);
+    return new Promise(async (resolve, reject) => {
+      let data = await SalariesDAO.deleteData(params, body);
+      console.log("inside service approved", data);
+      resolve({
+        status: 200,
+        data: data,
+        message: "Salary detail deleted successfully.",
+      });
+    });
+  },
+
+  updateData: (params, body) => {
+    console.log("data inside service", params, body);
+    return new Promise(async (resolve, reject) => {
+      let data = await SalariesDAO.updateData(params, body);
+      console.log("inside service approved", data);
+      resolve({
+        status: 200,
+        data: data,
+        message: "Salary detail updated successfully.",
+      });
+    });
+  },
 };
 module.exports = SalariesService;

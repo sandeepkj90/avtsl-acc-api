@@ -32,6 +32,8 @@ let api_url_list = {
     update_clients: "/clients/updateData",
     update_employees: "/users/updateData",
     delete_employees: "/users/deleteData",
+    update_salaries: "/salaries/updateData",
+    delete_salaries: "/salaries/deleteData",
     employees: "/users/register",
     bills: "/client-bills/addBill",
     expenses: "/expenses/expenseAdd",
@@ -102,7 +104,6 @@ function showToastConfirmMessage(message, color, userId) {
     hideToast();
   }, 2000);
 }
-
 
 // function getDataList(){
 

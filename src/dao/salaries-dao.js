@@ -27,11 +27,23 @@ const SalariesDAO = {
   },
   getSalariesByUserName: (payload) => {
     let obj = payload || {};
-    obj.active = true;
+    // obj.active = true;
     return SalariesModel.find(obj, { _id: 0 }).populate({
       path: "userId",
       select: { _id: 0, password: 0 },
     });
+  },
+  deleteData: (params, body) => {
+    return SalariesModel.updateOne(
+      { salariesPaidId: params.salariesPaidId },
+      { $set: body }
+    );
+  },
+  updateData: (params, body) => {
+    return SalariesModel.updateOne(
+      { salariesPaidId: params.salariesPaidId },
+      { $set: body }
+    );
   },
 };
 module.exports = SalariesDAO;
