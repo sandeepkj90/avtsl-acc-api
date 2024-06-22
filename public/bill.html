@@ -31,7 +31,6 @@
     <i id="show-main-loader" class="bx bx-loader-alt bx-spin"></i>
     <div class="callout toast" id="toast">
       <span id="toast-message" class="spanTag">Error</span>
-      
     </div>
     <div class="callout toast-confirm" id="toast-confirm">
       <span id="toast-confirm-message" class="spanTag-confirm">Error</span>
@@ -156,7 +155,7 @@
               <h4 class="modal-title">Client Bill Form</h4>
             </div>
             <div class="modal-body">
-              <form id="salaryPaid" style="border: 1px solid #ccc">
+              <form id="billPaid" style="border: 1px solid #ccc">
                 <div class="container">
                   <!-- <h4>Enter the Employee Salary Detail.</h4> -->
                   <span class="error-message" id="display-message"
@@ -168,7 +167,7 @@
                       <label for="firstName">Client List</label>
                       <select
                         class="form-control select-design"
-                        id="getSelectList"
+                        id="selectClient"
                       ></select>
                     </div>
                   </div>
@@ -187,7 +186,7 @@
                               <th>Status</th>
                             </tr>
                           </thead>
-                          <tbody id="employeeData">
+                          <tbody id="clientData">
                             <tr>
                               <td>-</td>
                               <td>-</td>
@@ -273,7 +272,7 @@
                   type="button"
                   class="cancelbtn form-button"
                   data-dismiss="modal"
-                  onclick="closeModal()"
+                  onclick="closeBillModal()"
                 >
                   CANCEL
                 </button>
@@ -301,13 +300,9 @@
               <th>Paid ID</th>
               <th>Name</th>
               <th>User Name</th>
-              <th>Salary</th>
               <th>Type</th>
-              <th>Food</th>
-              <th>Rent</th>
-              <th>Living</th>
               <th>Month</th>
-              <th>Total Paid</th>
+              <th>Amount</th>
               <th>Status</th>
               <th>Date</th>
               <th>Action</th>

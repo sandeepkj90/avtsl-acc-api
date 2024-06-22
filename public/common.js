@@ -14,7 +14,7 @@ let api_url_list = {
   get: {
     clients: "/clients/getClientList",
     employees: "/users/getEmployeeList",
-    bills: "",
+    bills: "/client-bills/getBillByUserName",
     expenses: "/expenses/getExpensesByCondition",
     investments: "/investments/getInvestmentsByCondition",
     salaries: "/salaries/getSalariesByUserName",

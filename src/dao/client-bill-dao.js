@@ -23,7 +23,10 @@ const ClientBillDAO = {
   getBillByUserName: (payload) => {
     let obj = payload || {};
     obj.active = true;
-    return ClientBillModel.find(obj, { _id: 0 });
+    return ClientBillModel.find(obj, { _id: 0 }).populate({
+      path: "clientId",
+      select: { _id: 0 },
+    });
   },
   billPaid: (payload) => {
     return ClientBillModel.updateOne(

@@ -25,7 +25,10 @@ const ClientBillService = {
           resolve({
             status: 200,
             data: result,
-            message: Constant.MESSAGE.CLIENT_BILL.FOUND,
+            message:
+              result.length > 0
+                ? Constant.MESSAGE.CLIENT_BILL.FOUND
+                : "No data found",
           });
         })
         .catch((error) => {

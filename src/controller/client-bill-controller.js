@@ -34,13 +34,7 @@ route.get("/getBillByUserName", (req, res) => {
     .then((result) => {
       res
         .status(200)
-        .send(
-          CustomResponse.sendResponse(
-            200,
-            result.data,
-            (result.message = "Data Found")
-          )
-        );
+        .send(CustomResponse.sendResponse(200, result.data, result.message));
     })
     .catch((error) => {
       res

@@ -40,7 +40,7 @@ const ClientBillSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
-  status: {
+  type: {
     type: String,
     enum: ["PENDING", "PAID"],
     default: "PENDING",

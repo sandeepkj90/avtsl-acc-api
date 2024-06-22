@@ -20,7 +20,7 @@ const ClientDAO = {
   getClientList: (payload) => {
     let obj = payload || {};
 
-    return ClientModel.find(obj, { _id: 0 });
+    return ClientModel.find(obj);
   },
   deleteData: (params, body) => {
     return ClientModel.updateOne({ userName: params.userName }, { $set: body });
