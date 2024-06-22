@@ -22,7 +22,7 @@ const ClientBillDAO = {
   },
   getBillByUserName: (payload) => {
     let obj = payload || {};
-    obj.active = true;
+    // obj.active = true;
     return ClientBillModel.find(obj, { _id: 0 }).populate({
       path: "clientId",
       select: { _id: 0 },
@@ -33,6 +33,12 @@ const ClientBillDAO = {
       { billId: payload.billId },
       { $set: { status: "PAID" } }
     );
+  },
+  deleteData: (params, body) => {
+    return ClientBillModel.updateOne({ billId: params.billId }, { $set: body });
+  },
+  updateData: (params, body) => {
+    return ClientBillModel.updateOne({ billId: params.billId }, { $set: body });
   },
 };
 module.exports = ClientBillDAO;

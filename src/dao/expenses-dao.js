@@ -11,13 +11,28 @@ const ExpensesDAO = {
     }-${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}`;
     return new ExpensesModel({
       ...payload,
-      expenseId: `EXPENSES-${payload.userName.toUpperCase()}-${Utility.generateUID()}-AVTSL-${getDateCode}`,
+      expenseId: `EXP-${Utility.generateUID()}-AVTSL-${getDateCode}`,
     }).save();
   },
   getExpensesByCondition: (payload) => {
     let obj = payload || {};
-    obj.active = true;
-    return ExpensesModel.find(obj, { _id: 0 });
+    // obj.active = true;
+    return ExpensesModel.find(obj, { _id: 0 }).populate({
+      path: "userId",
+      select: { _id: 0 },
+    });
+  },
+  deleteData: (params, body) => {
+    return ExpensesModel.updateOne(
+      { expenseId: params.expenseId },
+      { $set: body }
+    );
+  },
+  updateData: (params, body) => {
+    return ExpensesModel.updateOne(
+      { expenseId: params.expenseId },
+      { $set: body }
+    );
   },
 };
 module.exports = ExpensesDAO;

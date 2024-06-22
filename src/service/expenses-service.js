@@ -25,12 +25,41 @@ const ExpensesService = {
           resolve({
             status: 200,
             data: result,
-            message: Constant.MESSAGE.EXPENSE.FOUND,
+
+            message:
+              result.length > 0
+                ? Constant.MESSAGE.EXPENSE.FOUND
+                : "No data found",
           });
         })
         .catch((error) => {
           reject({ status: 500, message: error });
         });
+    });
+  },
+  deleteData: (params, body) => {
+    console.log("data inside service", params, body);
+    return new Promise(async (resolve, reject) => {
+      let data = await ExpensesDAO.deleteData(params, body);
+      console.log("inside service approved", data);
+      resolve({
+        status: 200,
+        data: data,
+        message: "Expense deleted successfully.",
+      });
+    });
+  },
+
+  updateData: (params, body) => {
+    console.log("data inside service", params, body);
+    return new Promise(async (resolve, reject) => {
+      let data = await ExpensesDAO.updateData(params, body);
+      console.log("inside service approved", data);
+      resolve({
+        status: 200,
+        data: data,
+        message: "Expense updated successfully.",
+      });
     });
   },
 };

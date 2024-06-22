@@ -65,17 +65,14 @@ function showData(...data) {
     userName,
     email,
     phone,
-    salary,
     address,
     active,
     type,
-    food,
-    rent,
-    living,
+    amount,
     month,
     year,
     day,
-    salaryPaidId,
+    billId,
   ] = data;
   selectedEmp = {
     firstName: firstName,
@@ -84,29 +81,24 @@ function showData(...data) {
     email: email,
     phone: phone,
     address: address,
-    salary: salary,
     active: active,
   };
   if (!active) {
     showToastMessage(
-      `Employee profile is inactive. You cannot update the record.`,
+      `Client is inactive. You cannot update the record.`,
       "error"
     );
     return false;
   }
-  for (let i of ["type", "food", "rent", "living", "month", "year", "day"]) {
+  for (let i of ["type", "amount", "month", "year", "day"]) {
     $(`#${i}`).css("border-left", "3px #434242 solid");
   }
   $("#myModal").modal("show");
   $("#addbtn").css("display", "none");
-  $("#dataToDelete").html(salaryPaidId);
+  $("#dataToDelete").html(billId);
   $("#updatebtn").css("display", "block");
-  $("#rent").prop("readonly", false);
-  $("#living").prop("readonly", false);
-  $("#food").prop("readonly", false);
-  document.getElementById("food").value = food;
-  document.getElementById("living").value = living;
-  document.getElementById("rent").value = rent;
+  $("#amount").prop("readonly", false);
+  document.getElementById("amount").value = amount;
 
   // let color= (active)?'#c3fabb':'#f8b5b5';
 
@@ -132,7 +124,6 @@ function showData(...data) {
       <td>
       ${userName}</td>
       <td>${email}</td>
-      <td>${salary}</td>
 <td>${phone}</td>
 <td>${address}</td>
 <td>${
@@ -179,9 +170,7 @@ function showData(...data) {
 }
 function updateData() {
   let obj = {
-    living: document.getElementById("living").value,
-    food: document.getElementById("food").value,
-    rent: document.getElementById("rent").value,
+    amount: document.getElementById("amount").value,
     // clientId: selectedEmp._id,
     // userName: selectedEmp.userName,
   };
@@ -190,11 +179,7 @@ function updateData() {
 
   $("#register-loader").css("visibility", "visible");
   let payload = {
-    amount: {
-      living: document.getElementById("living").value,
-      food: document.getElementById("food").value,
-      rent: document.getElementById("rent").value,
-    },
+    amount: document.getElementById("amount").value,
     year: document.getElementById("year").value,
     month: document.getElementById("month").value,
     day: document.getElementById("day").value,
@@ -213,18 +198,20 @@ function updateData() {
   // let params = document.getElementById("userName").value;
   let params = $("#dataToDelete").html();
   $("#register-loader").css("visibility", "visible");
-  patchData("update_salaries", payload, null, params, function (result, error) {
+  patchData("update_bills", payload, null, params, function (result, error) {
     if (error) console.log(error);
     console.log({ "data received from": result });
     $("#register-loader").css("visibility", "hidden");
     showToastMessage(result.message, "success");
-    $("#salaryPaid").trigger("reset");
+    $("#billId").trigger("reset");
     selectedEmp = {};
     $("#type").val("NORMAL");
     $("#month").val(todayDate[0]);
     $("#year").val(todayDate[2]);
     $("#day").val(todayDate[1]);
+    $("#amount").val("");
     $("#myModal").modal("hide");
+    $("#selectClient").val("");
 
     // getClientBillList();
     setTimeout(() => {
@@ -272,18 +259,16 @@ function getClientBillList() {
            })}</td>
            <td>${
              it.active
-               ? `<span style="cursor:pointer;color:#FF4949;padding:5px;margin:5px; font-size:16px;"onclick="showToastConfirmMessage('Are you sure want to delete ?','error','${it.salariesPaidId}');"><i class="fa fa-trash-o" aria-hidden="true"></i></span>`
+               ? `<span style="cursor:pointer;color:#FF4949;padding:5px;margin:5px; font-size:16px;"onclick="showToastConfirmMessage('Are you sure want to delete ?','error','${it.billId}');"><i class="fa fa-trash-o" aria-hidden="true"></i></span>`
                : `<span style="cursor:pointer;color:#48bf36;padding:5px;margin:5px; font-size:16px;visibility:hidden" onclick=""><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>`
            }<span style="cursor:pointer;color:#48bf36;padding:5px;margin:5px;font-size:16px;" onclick="showData('${
         it.clientId.firstName
       }','${it.clientId.lastName}','${it.clientId.userName}','${
         it.clientId.email
-      }','${it.clientId.phone}','${it.clientId.salary}','${
-        it.clientId.address
-      }',${it.clientId.active},'${it.type}','${it.amount.food}','${
-        it.amount.rent
-      }','${it.amount.living}','${it.month}','${it.year}','${it.day}','${
-        it.salariesPaidId
+      }','${it.clientId.phone}','${it.clientId.address}',${
+        it.clientId.active
+      },'${it.type}','${it.amount}','${it.month}','${it.year}','${it.day}','${
+        it.billId
       }')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </span></td>
                </tr>
@@ -301,7 +286,7 @@ function deleteData() {
     active: false,
   };
   // $('#register-loader').css('visibility','visible');
-  patchData("delete_salaries", obj, null, params, function (result, error) {
+  patchData("delete_bills", obj, null, params, function (result, error) {
     if (error) console.log(error);
     console.log({ "data received from": result });
     $("#delete-loader").css("visibility", "hidden");
@@ -433,6 +418,7 @@ function showModalWithSelect(data) {
   $("#updatebtn").css("display", "none");
   $("#show-main-loader").css("display", "block");
   $("#selectClient").attr("disabled", false);
+  selectedEmp = {};
   getDataList("clients", null, { active: true }, function (result, error) {
     if (error) console.log(error);
     $("#selectClient").empty();

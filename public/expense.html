@@ -31,7 +31,6 @@
     <i id="show-main-loader" class="bx bx-loader-alt bx-spin"></i>
     <div class="callout toast" id="toast">
       <span id="toast-message" class="spanTag">Error</span>
-      
     </div>
     <div class="callout toast-confirm" id="toast-confirm">
       <span id="toast-confirm-message" class="spanTag-confirm">Error</span>
@@ -155,7 +154,7 @@
               <h4 class="modal-title">Admin/Employee Expense Form</h4>
             </div>
             <div class="modal-body">
-              <form id="salaryPaid" style="border: 1px solid #ccc">
+              <form id="expenseMade" style="border: 1px solid #ccc">
                 <div class="container">
                   <!-- <h4>Enter the Employee Salary Detail.</h4> -->
                   <span class="error-message" id="display-message"
@@ -167,7 +166,7 @@
                       <label for="firstName">Admin/Employee List</label>
                       <select
                         class="form-control select-design"
-                        id="getSelectList"
+                        id="selectEmployee"
                       ></select>
                     </div>
                   </div>
@@ -192,7 +191,6 @@
                               <td>-</td>
                               <td>-</td>
 
-                              <td>-</td>
                               <td>-</td>
                               <td>-</td>
                             </tr>
@@ -233,29 +231,29 @@
                     </div>
                   </div>
                   <div class="form-row">
-                    <div class="form-group col-md-12 remove">
-                      <div class="form-group col-md-6">
-                        <label for="month">Month</label>
-                        <select
-                          class="form-control select-design type-design"
-                          id="month"
-                        ></select>
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="year">Year</label>
-                        <select
-                          class="form-control select-design type-design"
-                          id="year"
-                        ></select>
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="day">Date</label>
-                        <select
-                          class="form-control select-design type-design"
-                          id="day"
-                        ></select>
-                      </div>
+                    <!-- <div class="form-group col-md-12 remove"> -->
+                    <div class="form-group col-md-6">
+                      <label for="month">Month</label>
+                      <select
+                        class="form-control select-design type-design"
+                        id="month"
+                      ></select>
                     </div>
+                    <div class="form-group col-md-3">
+                      <label for="year">Year</label>
+                      <select
+                        class="form-control select-design type-design"
+                        id="year"
+                      ></select>
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label for="day">Date</label>
+                      <select
+                        class="form-control select-design type-design"
+                        id="day"
+                      ></select>
+                    </div>
+                    <!-- </div> -->
                   </div>
                 </div>
               </form>
@@ -284,7 +282,7 @@
                   type="button"
                   class="cancelbtn form-button"
                   data-dismiss="modal"
-                  onclick="closeModal()"
+                  onclick="closeExpenseModal()"
                 >
                   CANCEL
                 </button>
@@ -309,16 +307,13 @@
         <table class="table table-hover">
           <thead class="thead-style">
             <tr>
-              <th>Paid ID</th>
+              <th>Expense ID</th>
               <th>Name</th>
               <th>User Name</th>
-              <th>Salary</th>
               <th>Type</th>
-              <th>Food</th>
-              <th>Rent</th>
-              <th>Living</th>
+              <th>amount</th>
+              <th>description</th>
               <th>Month</th>
-              <th>Total Paid</th>
               <th>Status</th>
               <th>Date</th>
               <th>Action</th>

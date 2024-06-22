@@ -48,5 +48,30 @@ const ClientBillService = {
       });
     });
   },
+  deleteData: (params, body) => {
+    console.log("data inside service", params, body);
+    return new Promise(async (resolve, reject) => {
+      let data = await ClientBillDAO.deleteData(params, body);
+      console.log("inside service approved", data);
+      resolve({
+        status: 200,
+        data: data,
+        message: "Bill deleted successfully.",
+      });
+    });
+  },
+
+  updateData: (params, body) => {
+    console.log("data inside service", params, body);
+    return new Promise(async (resolve, reject) => {
+      let data = await ClientBillDAO.updateData(params, body);
+      console.log("inside service approved", data);
+      resolve({
+        status: 200,
+        data: data,
+        message: "Bill updated successfully.",
+      });
+    });
+  },
 };
 module.exports = ClientBillService;

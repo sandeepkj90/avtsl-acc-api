@@ -445,6 +445,7 @@ function showModalWithSelect(data) {
   $("#updatebtn").css("display", "none");
   $("#show-main-loader").css("display", "block");
   $("#selectEmployee").attr("disabled", false);
+  selectedEmp = {};
   getDataList(
     "employees",
     null,

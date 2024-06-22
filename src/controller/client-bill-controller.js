@@ -68,5 +68,55 @@ route.patch("/billPaid/:billId", (req, res) => {
         );
     });
 });
+route.patch("/deleteData/:billId", (req, res) => {
+  let params = req.params;
+  let body = req.body;
+  console.log("data inside controller", params, body);
+  ClientBillService.deleteData(params, body)
+    .then((result) => {
+      console.log("result=============", result);
+      res
+        .status(result.status)
+        .send(
+          CustomResponse.sendResponse(
+            result.status,
+            result.data,
+            result.message
+          )
+        );
+    })
+    .catch((error) => {
+      res
+        .status(error.status)
+        .send(
+          CustomResponse.sendResponse(error.status, error.data, error.message)
+        );
+    });
+});
+route.patch("/updateData/:billId", (req, res) => {
+  let params = req.params;
+  let body = req.body;
+  console.log("data inside controller", params, body);
+  ClientBillService.updateData(params, body)
+    .then((result) => {
+      console.log("result=============", result);
+      res
+        .status(result.status)
+        .send(
+          CustomResponse.sendResponse(
+            result.status,
+            result.data,
+            result.message
+          )
+        );
+    })
+    .catch((error) => {
+      res
+        .status(error.status)
+        .send(
+          CustomResponse.sendResponse(error.status, error.data, error.message)
+        );
+    });
+});
 
 module.exports = route;
