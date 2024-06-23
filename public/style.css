@@ -376,12 +376,12 @@ body.dark .home .text {
   color: #fff;
   background-color: #ff4949;
   padding: 8px 20px;
-  position: absolute;
+  /* position: absolute;
   top: 12%;
   right: 3%;
   display: flex;
   justify-content: flex-end;
-  align-items: flex-end;
+  align-items: flex-end; */
   text-align: center;
   text-decoration: none;
   font-size: 14px;
@@ -431,14 +431,14 @@ body.dark .home .text {
 #showTableDesc {
   color: #ff4949;
   padding: 8px 20px;
-  position: absolute;
+  /* position: absolute;
   top: 12%;
   left: 17%;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
   text-align: center;
-  text-decoration: none;
+  text-decoration: none; */
   font-size: 23px;
   margin: 4px 2px;
 }
@@ -734,7 +734,6 @@ button:hover {
 }
 
 .select-design {
-  width: 30%;
   height: 40px;
   padding: 9px;
   padding-top: 5px;
@@ -770,4 +769,67 @@ button:hover {
 .bottom-content li a:hover .icon,
 .bottom-content li a:hover .text {
   color: #ff4949;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 22px;
+  margin-top: 7px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f2c5c5;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 17px;
+  width: 17px;
+  left: 2px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.active-check:checked + .slider {
+  background-color: #48bf36;
+}
+
+.active-check:focus + .slider {
+  box-shadow: 0 0 1px #48bf36;
+}
+
+.active-check:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.filter-design {
+  margin-top: 20px;
 }

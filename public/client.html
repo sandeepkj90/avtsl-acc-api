@@ -269,16 +269,44 @@
           </div>
         </div>
       </div>
-      <span id="showTableDesc">List</span>
-      <button
-        type="button"
-        class="add-btn"
-        data-toggle="modal"
-        data-target="#myModal"
-        onclick="showModal(['firstName','lastName','email','password','phone','status','userName'])"
-      >
-        ADD
-      </button>
+
+      <div>
+        <div class="form-group col-md-2">
+          <span id="showTableDesc">List</span>
+        </div>
+
+        <div class="form-group col-md-1"></div>
+        <div class="form-group col-md-2">
+          <select
+            class="form-control select-design type-design filter-design"
+            id="month"
+          ></select>
+        </div>
+        <div class="form-group col-md-2">
+          <select
+            class="form-control select-design type-design filter-design"
+            id="year"
+          ></select>
+        </div>
+        <div class="form-group col-md-2">
+          <select
+            class="form-control select-design type-design filter-design"
+            id="day"
+          ></select>
+        </div>
+        <div class="form-group col-md-2"></div>
+        <div class="form-group col-md-1">
+          <button
+            type="button"
+            class="add-btn"
+            data-toggle="modal"
+            data-target="#myModal"
+            onclick="showModal(['firstName','lastName','email','password','phone','status','userName'])"
+          >
+            ADD
+          </button>
+        </div>
+      </div>
 
       <div class="table-responsive">
         <table class="table table-hover">

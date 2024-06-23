@@ -61,6 +61,18 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  month: {
+    type: String,
+    default: "",
+  },
+  year: {
+    type: String,
+    default: "",
+  },
+  day: {
+    type: String,
+    default: "",
+  },
   active: {
     type: Boolean,
     default: true,

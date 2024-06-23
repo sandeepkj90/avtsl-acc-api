@@ -10,8 +10,10 @@ const UserDAO = {
         { $unwind: "$userName" },
         { $group: { _id: null, result: { $addToSet: "$userName" } } },
       ])
-    )[0].result;
-    if (result.length > 0) result = Utility.calcUserId(result);
+    )[0]?.result;
+
+    if (result?.length > 0) result = Utility.calcUserId(result);
+    else result = "01";
     // console.log(result);
     // return true;
     return new UserModel({

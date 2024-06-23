@@ -1,4 +1,54 @@
 // console.log('admin page js');
+let empList = [];
+let typeList = ["GENERAL", "TRAVEL", "FOOD", "STATIONARY", "TOOLS"];
+let todayDate = new Date()
+  .toLocaleDateString("en-us", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  })
+  .replace(",", "")
+  .split(" ");
+let dayList = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+  23, 24, 25, 26, 27, 28, 29, 30, 31
+];
+let roleList = ["EMPLOYEE", "ADMIN", "SUPER-ADMIN"];
+let yearList = [
+  "2023",
+  "2024",
+  "2025",
+  "2026",
+  "2027",
+  "2028",
+  "2029",
+  "2030",
+  "2031",
+  "2032",
+  "2033",
+  "2034",
+  "2035",
+  "2036",
+  "2037",
+  "2038",
+  "2039",
+  "2040"
+];
+let monthList = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+
 (function () {
   if (!localStorage.getItem("token")) window.location.href = "/login";
   //   $('#setName').text(`Hi ${localStorage.getItem('name')}`);
@@ -8,8 +58,20 @@
 
 function showData(...data) {
   console.log("data to view ", data);
-  let [firstName, lastName, userName, email, salary, phone, address, active] =
-    data;
+  let [
+    firstName,
+    lastName,
+    userName,
+    email,
+    salary,
+    phone,
+    address,
+    active,
+    year,
+    month,
+    day,
+    role
+  ] = data;
   for (let i of [
     "firstName",
     "lastName",
@@ -18,12 +80,39 @@ function showData(...data) {
     "salary",
     "phone",
     "address",
+    "year",
+    "month",
+    "day"
   ]) {
     $(`#${i}`).css("border-left", "3px #434242 solid");
   }
+
   $("#myModal").modal("show");
   $("#addbtn").css("display", "none");
   $("#updatebtn").css("display", "block");
+  $("#registerClient").trigger("reset");
+
+  $("#year").empty();
+  $("#month").empty();
+  $("#day").empty();
+  for (let item of monthList) {
+    $("#month").append($(`<option>`).val(item).text(item));
+  }
+
+  for (let item of yearList) {
+    // let selectedYear = item == todayDate[2] ? true : false;
+    $("#year").append($(`<option>`).val(item).text(item));
+  }
+  for (let item of roleList) {
+    // let selectedYear = item == todayDate[2] ? true : false;
+    $("#role").append($(`<option>`).val(item).text(item));
+  }
+
+  for (let item of dayList) {
+    let option = item < 10 ? `0${item}` : item;
+
+    $("#day").append($(`<option>`).val(option).text(option));
+  }
   document.getElementById("firstName").value = firstName;
   document.getElementById("lastName").value = lastName;
   document.getElementById("email").value = email;
@@ -31,24 +120,36 @@ function showData(...data) {
   document.getElementById("address").value = address;
   document.getElementById("userName").value = userName;
   document.getElementById("salary").value = salary;
-
+  document.getElementById("year").value = year;
+  document.getElementById("month").value = month;
+  document.getElementById("day").value = day;
+  document.getElementById("role").value = role;
+  $("#role").attr("disabled", true);
+  // $('#active-check').checked()
+  $("#active-check").prop("checked", active);
   // let color= (active)?'#c3fabb':'#f8b5b5';
-  let textColor = active ? "#48bf36" : "#FF4949";
-  let status = active ? "T" : "F";
-  // $('#status').css('background-color',color);
-  $("#status").css("color", textColor);
-  document.getElementById("status").value = status;
+  // let textColor = active ? "#48bf36" : "#FF4949";
+  // let status = active ? "T" : "F";
+  // // $('#status').css('background-color',color);
+  // $("#status").css("color", textColor);
+
+  // document.getElementById("status").value = status;
+  if (role == "SUPER-ADMIN" || role == "ADMIN")
+    $("#active-check").prop("disabled", true);
+  else $("#active-check").prop("disabled", false);
 }
 function updateData() {
-  let status = document.getElementById("status").value;
-  let active = "";
-  if (status == "T" || status == "t") {
-    active = true;
-  } else if (status == "F" || status == "f") {
-    active = false;
-  } else {
-    active = true;
-  }
+  let active = document.getElementById("active-check").value;
+  // let active = "";
+  // if (status == "T" || status == "t") {
+  //   active = true;
+  // } else if (status == "F" || status == "f") {
+  //   active = false;
+  // } else {
+  //   active = true;
+  // }
+  // console.log("---", status);
+  // $();
   let obj = {
     firstName: document.getElementById("firstName").value,
     lastName: document.getElementById("lastName").value,
@@ -56,7 +157,10 @@ function updateData() {
     phone: document.getElementById("phone").value,
     address: document.getElementById("address").value,
     salary: document.getElementById("salary").value,
-    active,
+    year: document.getElementById("year").value,
+    month: document.getElementById("month").value,
+    day: document.getElementById("day").value,
+    active
   };
   let isFormValid = formValidation(obj);
   if (!isFormValid) return false;
@@ -64,7 +168,7 @@ function updateData() {
   $("#register-loader").css("visibility", "visible");
   patchData("update_employees", obj, null, params, function (result, error) {
     if (error) console.log(error);
-    console.log({ "data received from": result });
+    console.log({"data received from": result});
     $("#register-loader").css("visibility", "hidden");
     showToastMessage(result.message, "success");
     $("#registerClient").trigger("reset");
@@ -75,25 +179,72 @@ function updateData() {
     }, 2000);
   });
 }
+
+function showModalWithSelect(data) {
+  for (let i of data) {
+    $(`#${i}`).css("border-left", "3px #434242 solid");
+  }
+  $("#addbtn").css("display", "block");
+  $("#updatebtn").css("display", "none");
+  $("#status").css("color", backgrndColor["success"]);
+  $("#status").val("T");
+  $("#registerClient").trigger("reset");
+  $("#display-message").css("visibility", "hidden");
+  $("#year").empty();
+  $("#month").empty();
+  $("#day").empty();
+  $("#role").empty();
+
+  for (let item of monthList) {
+    $("#month").append($(`<option>`).val(item).text(item));
+  }
+
+  for (let item of yearList) {
+    let selectedYear = item == todayDate[2] ? true : false;
+    $("#year").append($(`<option>`).val(item).text(item));
+  }
+
+  for (let item of dayList) {
+    let option = item < 10 ? `0${item}` : item;
+
+    $("#day").append($(`<option>`).val(option).text(option));
+  }
+  for (let item of roleList) {
+    $("#role").append($(`<option>`).val(item).text(item));
+  }
+  $("#role").prop("disabled", false);
+
+  $("#month").val(todayDate[0]);
+  $("#year").val(todayDate[2]);
+  $("#day").val(todayDate[1]);
+  $("#role").val(roleList[0]);
+  $("#active-check").prop("disabled", true);
+}
+// $("#active").mousedown(function () {
+//   //if (!$(this).is(':checked')) {
+//   //this.checked = confirm("Are you sure?");
+//   //  $(this).trigger("change");
+//   //}
+//   console.log($("#active").val());
+// });
+function getCheckedData(e, checkboxId) {
+  $("#active-check").val(e.target.checked);
+}
 function getEmployeeList() {
   $("#tableList").html("");
 
   $("#show-main-loader").css("display", "block");
   $("#showTableDesc").html("Employee List");
-  getDataList(
-    "employees",
-    null,
-    { role: "OPERATOR" },
-    function (result, error) {
-      if (error) console.log(error);
+  getDataList("employees", null, {role: "OPERATOR"}, function (result, error) {
+    if (error) console.log(error);
 
-      if (result.data.length == 0) showToastMessage(result.message, "info");
+    if (result.data.length == 0) showToastMessage(result.message, "info");
 
-      let str = "";
-      let count = 0;
-      for (let it of result.data) {
-        count = count + 1;
-        str += `<tr>
+    let str = "";
+    let count = 0;
+    for (let it of result.data) {
+      count = count + 1;
+      str += `<tr>
       <td>${count}</td>
                     
                     <td>${it.firstName} ${it.lastName}</td>
@@ -101,6 +252,7 @@ function getEmployeeList() {
                     ${it.userName}</td>
                     <td>${it.salary}</td>
                     <td>${it.email}</td>
+                    <td>${it.month} ${it.day}, ${it.year}</td>
             <td>${it.phone}</td>
             <td>${it.address}</td>
             <td>${
@@ -108,42 +260,42 @@ function getEmployeeList() {
                 ? '<span style="color:#48bf36; font-size:16px;text-align:center;"onclick=""><i class="fa fa-circle" aria-hidden="true"></i></span>'
                 : '<span style="color:#FF4949; font-size:16px;text-align:center;" onclick=""><i class="fa fa-circle" aria-hidden="true"></i></span>'
             }</td>
+            
             <td>${new Date(it.date).toLocaleDateString("en-us", {
               year: "numeric",
               month: "short",
-              day: "numeric",
+              day: "numeric"
             })}</td>
                     
                     
                 <td>${
-                  it.active && it.role != "SUPER-ADMIN"
+                  it.active && it.role == "EMPLOYEE"
                     ? `<span style="cursor:pointer;color:#FF4949;padding:5px;margin:5px; font-size:16px;"onclick="showToastConfirmMessage('Are you sure want to delete ?','error','${it.userName}');"><i class="fa fa-trash-o" aria-hidden="true"></i></span>`
                     : `<span style="cursor:pointer;color:#48bf36;padding:5px;margin:5px; font-size:16px;visibility:hidden" onclick=""><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>`
                 }<span style="cursor:pointer;color:#48bf36;padding:5px;margin:5px;font-size:16px;" onclick="showData('${
-          it.firstName
-        }','${it.lastName}','${it.userName}','${it.email}','${it.salary}','${
-          it.phone
-        }','${it.address}',${
-          it.active
-        })"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        it.firstName
+      }','${it.lastName}','${it.userName}','${it.email}','${it.salary}','${
+        it.phone
+      }','${it.address}',${it.active},'${it.year}','${it.month}','${it.day}','${
+        it.role
+      }')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </span></td></tr>`;
-      }
-      // str +=`<tr><td>Total Amount</td><td>${response.data.totalAmount}</tr>`
-      $("#tableList").append(str);
-      $("#show-main-loader").css("display", "none");
     }
-  );
+    // str +=`<tr><td>Total Amount</td><td>${response.data.totalAmount}</tr>`
+    $("#tableList").append(str);
+    $("#show-main-loader").css("display", "none");
+  });
 }
 function deleteData() {
   $("#delete-loader").css("visibility", "visible");
   let params = $("#dataToDelete").html();
   let obj = {
-    active: false,
+    active: false
   };
   // $('#register-loader').css('visibility','visible');
   patchData("delete_employees", obj, null, params, function (result, error) {
     if (error) console.log(error);
-    console.log({ "data received from": result });
+    console.log({"data received from": result});
     $("#delete-loader").css("visibility", "hidden");
     hideConfirmToast();
     showToastMessage(result.message, "success");
@@ -156,25 +308,33 @@ function deleteData() {
 }
 function register() {
   // showToastMessage('Good Morning','success');
-  let status = document.getElementById("status").value;
-  let active = "";
-  if (status == "T" || status == "t") {
-    active = true;
-  } else if (status == "F" || status == "f") {
-    active = false;
-  } else {
-    active = true;
-  }
+  // let status = document.getElementById("status").value;
+  // let active = "";
+  // if (status == "T" || status == "t") {
+  //   active = true;
+  // } else if (status == "F" || status == "f") {
+  //   active = false;
+  // } else {
+  //   active = true;
+  // }
+  let active = Boolean(document.getElementById("active-check").value);
   let obj = {
-    firstName: document.getElementById("firstName").value,
-    lastName: document.getElementById("lastName").value,
-    email: document.getElementById("email").value,
-    phone: document.getElementById("phone").value,
-    address: document.getElementById("address").value,
-    salary: document.getElementById("salary").value,
+    firstName: document.getElementById("firstName").value.trim(),
+    lastName: document.getElementById("lastName").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    phone: document.getElementById("phone").value.trim(),
+    address: document.getElementById("address").value.trim(),
+    salary: document.getElementById("salary").value.trim(),
+    year: document.getElementById("year").value,
+    month: document.getElementById("month").value,
+    day: document.getElementById("day").value,
     password: "asdf1234",
     active,
-    role: "EMPLOYEE",
+    status:
+      document.getElementById("role").value != "EMPLOYEE"
+        ? "APPROVED"
+        : "INPROGRESS",
+    role: document.getElementById("role").value
   };
   let isFormValid = formValidation(obj);
   if (!isFormValid) return false;
@@ -183,7 +343,7 @@ function register() {
 
   postData("employees", obj, null, null, function (result, error) {
     if (error) console.log(error);
-    console.log({ "data received from": result });
+    console.log({"data received from": result});
     $("#register-loader").css("visibility", "hidden");
     showToastMessage(result.message, "success");
     $("#registerClient").trigger("reset");
@@ -195,6 +355,14 @@ function register() {
   });
 }
 
+{
+  /* <label class="switch">
+            <input type="checkbox" class="active-check" onclick="getCheckedData(event,'${
+              it.userName
+            }')" id="${it.userName}" ${it.active ? "checked" : ""}>
+            <span class="slider round"></span>
+          </label> */
+}
 // function assignTechy() {
 //   let obj = {
 //     assignedTo: $('#technicianList option:selected').val(),
@@ -623,4 +791,11 @@ function register() {
 function closeEmployeeModal() {
   $("#registerClient").trigger("reset");
   $("#display-message").css("visibility", "hidden");
+  $("#salary").val("");
+  $("#month").val(todayDate[0]);
+  $("#year").val(todayDate[2]);
+  $("#day").val(todayDate[1]);
+  $("#active-check").prop("checked", true);
+  $("#active-check").prop("disabled", false);
+  $("#role").prop("disabled", false);
 }

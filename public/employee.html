@@ -202,7 +202,7 @@
                         placeholder="Enter email"
                       />
                     </div>
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-md-6">
                       <label for="phone">Phone</label>
                       <input
                         type="number"
@@ -212,18 +212,9 @@
                         placeholder="Enter phone"
                       />
                     </div>
-                    <div class="form-group col-md-1">
-                      <label for="status">Active</label>
-                      <input
-                        type="text"
-                        autocomplete="off"
-                        class="form-control"
-                        id="status"
-                      />
-                    </div>
                   </div>
                   <div class="form-row">
-                    <div class="form-group col-md-8">
+                    <div class="form-group col-md-7">
                       <label for="address">Address</label>
                       <input
                         type="text"
@@ -242,6 +233,51 @@
                         id="userName"
                         readonly
                       />
+                    </div>
+
+                    <div class="form-group col-md-1">
+                      <label for="status">Active</label>
+                      <br />
+                      <label class="switch">
+                        <input
+                          type="checkbox"
+                          class="active-check"
+                          onclick="getCheckedData(event)"
+                          id="active-check"
+                          checked
+                        />
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-3">
+                      <label for="month">Role</label>
+                      <select
+                        class="form-control select-design type-design"
+                        id="role"
+                      ></select>
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label for="month">Joining Month</label>
+                      <select
+                        class="form-control select-design type-design"
+                        id="month"
+                      ></select>
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label for="year">Joining Year</label>
+                      <select
+                        class="form-control select-design type-design"
+                        id="year"
+                      ></select>
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label for="day">Joining Date</label>
+                      <select
+                        class="form-control select-design type-design"
+                        id="day"
+                      ></select>
                     </div>
                   </div>
                 </div>
@@ -281,16 +317,43 @@
           </div>
         </div>
       </div>
-      <span id="showTableDesc">List</span>
-      <button
-        type="button"
-        class="add-btn"
-        data-toggle="modal"
-        data-target="#myModal"
-        onclick="showModal(['firstName','lastName','email','salary','password','phone','status','userName'])"
-      >
-        ADD
-      </button>
+
+      <div>
+        <div class="form-group col-md-2">
+          <span id="showTableDesc" class="filter-design">List</span>
+        </div>
+        <div class="form-group col-md-1"></div>
+        <div class="form-group col-md-2">
+          <select
+            class="form-control select-design type-design filter-design"
+            id="month"
+          ></select>
+        </div>
+        <div class="form-group col-md-2">
+          <select
+            class="form-control select-design type-design filter-design"
+            id="year"
+          ></select>
+        </div>
+        <div class="form-group col-md-2">
+          <select
+            class="form-control select-design type-design filter-design"
+            id="day"
+          ></select>
+        </div>
+        <div class="form-group col-md-2"></div>
+        <div class="form-group col-md-1">
+          <button
+            type="button"
+            class="add-btn filter-design"
+            data-toggle="modal"
+            data-target="#myModal"
+            onclick="showModalWithSelect(['firstName','lastName','email','salary','password','phone','status','userName','year','day','month'])"
+          >
+            ADD
+          </button>
+        </div>
+      </div>
 
       <div class="table-responsive">
         <table class="table table-hover">
@@ -301,6 +364,7 @@
               <th>Emp ID</th>
               <th>Salary</th>
               <th>Email</th>
+              <th>Joined On</th>
               <th>Phone</th>
               <th>Address</th>
               <th>Status</th>

@@ -2,13 +2,13 @@ let backgrndColor = {
   error: "#FF4949",
   success: "#48bf36",
   info: "#2793dc",
-  warning: "#f3a827",
+  warning: "#f3a827"
 };
 let borderLeftColor = {
   error: "4px #b70c0c solid;",
   success: "4px #208211 solid",
   info: "4px #0f5787 solid",
-  warning: "4px #b3750b solid",
+  warning: "4px #b3750b solid"
 };
 let api_url_list = {
   get: {
@@ -17,7 +17,7 @@ let api_url_list = {
     bills: "/client-bills/getBillByUserName",
     expenses: "/expenses/getExpensesByCondition",
     investments: "/investments/getInvestmentsByCondition",
-    salaries: "/salaries/getSalariesByUserName",
+    salaries: "/salaries/getSalariesByUserName"
   },
   post: {
     clients: "/clients/register",
@@ -25,7 +25,7 @@ let api_url_list = {
     bills: "/client-bills/addBill",
     expenses: "/expenses/expenseAdd",
     investments: "/investments/investmentAdd",
-    salaries: "/salaries/salaryPaid",
+    salaries: "/salaries/salaryPaid"
   },
   patch: {
     delete_client: "/clients/deleteData",
@@ -42,8 +42,8 @@ let api_url_list = {
     bills: "/client-bills/addBill",
     expenses: "/expenses/expenseAdd",
     investments: "/investments/investmentAdd",
-    salaries: "/salaries/salaryPaid",
-  },
+    salaries: "/salaries/salaryPaid"
+  }
 };
 
 function getQueryData(obj) {
@@ -127,7 +127,7 @@ function getDataList(url, params, query, callback) {
       "Access-Control-Allow-Methods": "GET",
       "Access-Control-Allow-Headers": "application/json",
       contentType: "application/json",
-      Authorization: localStorage.getItem("token"),
+      Authorization: localStorage.getItem("token")
     },
     dataType: "json",
     success: function (response) {
@@ -149,12 +149,25 @@ function getDataList(url, params, query, callback) {
       console.log("error", error);
       callback(null, error);
       //let data = JSON.stringify(error.responseJSON.message.message));
-    },
+    }
   });
 }
 $("input").focus(function () {
   $(this).css("border-left", "3px #36d874 solid");
 });
+function regexValidation(field, regex, data, format) {
+  console.log(field, regex, data, format);
+  let regexExp = new RegExp(regex);
+  let message = "";
+  if (!regexExp.test(data)) {
+    $(`#${field}`).css("border-left", "3px #FF4949 solid");
+    message = `Invalid ${field.toUpperCase()} format. ${field.toUpperCase()} should be ${format}.`;
+
+    showErrorMessage(message, "error");
+    return false;
+  }
+  return true;
+}
 function formValidation(data) {
   let message = "";
   for (let i in data) {
@@ -172,6 +185,20 @@ function formValidation(data) {
     } else {
       $(`#${i}`).css("border-left", "3px #434242 solid");
     }
+    let regex = "";
+    let format = "";
+    if (i == "email") {
+      regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+      format = "<xxx@xxx.xx>";
+    }
+    if (i == "phone") {
+      regex = "^([+]\\d{2})?\\d{10}$";
+      format = "10 digits.";
+    }
+    if (i == "email" || i == "phone") {
+      let result = regexValidation(i, regex, data[i], format);
+      if (!result) return false;
+    }
   }
   return true;
 }
@@ -185,7 +212,7 @@ function postData(url, body, query, params, callback) {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "POST",
       "Access-Control-Allow-Headers": "application/json",
-      contentType: "application/json",
+      contentType: "application/json"
     },
     dataType: "json",
     data: JSON.stringify(body),
@@ -208,7 +235,7 @@ function postData(url, body, query, params, callback) {
       console.log("error", error);
       callback(null, error);
       //let data = JSON.stringify(error.responseJSON.message.message));
-    },
+    }
   });
 }
 
@@ -225,7 +252,7 @@ function patchData(url, body, query, params, callback) {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "PATCH",
       "Access-Control-Allow-Headers": "application/json",
-      contentType: "application/json",
+      contentType: "application/json"
     },
     dataType: "json",
     data: JSON.stringify(body),
@@ -248,17 +275,8 @@ function patchData(url, body, query, params, callback) {
       console.log("error", error);
       callback(null, error);
       //let data = JSON.stringify(error.responseJSON.message.message));
-    },
+    }
   });
-}
-function showModal(data) {
-  for (let i of data) {
-    $(`#${i}`).css("border-left", "3px #434242 solid");
-  }
-  $("#addbtn").css("display", "block");
-  $("#updatebtn").css("display", "none");
-  $("#status").css("color", backgrndColor["success"]);
-  $("#status").val("T");
 }
 
 function calcSalaryRemaining(inp1, inp2, inp3, event, salary) {

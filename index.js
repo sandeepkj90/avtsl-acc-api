@@ -88,6 +88,10 @@ UserDAO.isUserExist({
       address: "INDIA",
       phone: 7878767678,
       profilePic: "profile_icon.jpeg",
+      year:'2024',
+      month:'07',
+      day:'21'
+
     }).then((response) => {
       console.log("Admin Registered successfully");
     });
