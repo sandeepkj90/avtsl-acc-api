@@ -9,19 +9,19 @@ function navigateTo(pageName) {
       break;
     }
     case "INCOME": {
-      window.location.href = "/investment";
+      window.location.href = "#"; //"/investment";
       break;
     }
     case "BILLS": {
-      window.location.href = "/bill";
+      window.location.href = "#"; //"/bill";
       break;
     }
     case "EXPENSE": {
-      window.location.href = "/expense";
+      window.location.href = "#"; //"/expense";
       break;
     }
     case "SALARY": {
-      window.location.href = "/salary";
+      window.location.href = "#"; //"/salary";
       break;
     }
     case "EMPLOYEE": {
@@ -29,7 +29,7 @@ function navigateTo(pageName) {
       break;
     }
     case "REPORT": {
-      window.location.href = "/report";
+      window.location.href = "#"; // "/report";
       break;
     }
   }

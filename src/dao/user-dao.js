@@ -1,13 +1,21 @@
 const UserModel = require("../model/user-model");
+const Utility = require("../utils/utility");
 const UserDAO = {
-  register: (payload) => {
-    let code = payload.phone.toString();
+  register: async (payload) => {
     console.log("data inside dao", payload);
+    let result = (
+      await UserModel.aggregate([
+        { $match: {} },
+        { $project: { _id: 0, userName: 1 } },
+        { $unwind: "$userName" },
+        { $group: { _id: null, result: { $addToSet: "$userName" } } },
+      ])
+    )[0].result;
+    if (result.length > 0) result = Utility.calcUserId(result);
+    // console.log(result);
+    // return true;
     return new UserModel({
-      userName: `${payload.firstName.toLowerCase()}${code.slice(
-        0,
-        2
-      )}${code.slice(code.length - 2, code.length)}avtsl`,
+      userName: `AV${result}`,
       ...payload,
     }).save();
   },

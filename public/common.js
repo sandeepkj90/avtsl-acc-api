@@ -45,6 +45,7 @@ let api_url_list = {
     salaries: "/salaries/salaryPaid",
   },
 };
+
 function getQueryData(obj) {
   let str = "?";
   for (let item in obj) {

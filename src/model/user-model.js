@@ -33,7 +33,7 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ["SUPER_ADMIN", "ADMIN", "EMPLOYEE", "OPERATOR"],
+    enum: ["SUPER-ADMIN", "ADMIN", "EMPLOYEE", "OPERATOR"],
     default: "EMPLOYEE",
   },
   salary: {
@@ -44,12 +44,6 @@ const UserSchema = new Schema({
     type: Number,
     default: 1234,
   },
-  skills: [
-    {
-      type: String,
-      default: "",
-    },
-  ],
   legalDocs: {
     type: String,
     default: "",

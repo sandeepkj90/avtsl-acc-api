@@ -26,5 +26,15 @@ const Utility = {
     let resposneData = jwt.verify(payload, Constant.SECRET_KEY);
     return resposneData;
   },
+  calcUserId: (arr) => {
+    let dataList = arr.map((item) => {
+      item = item.replace("AV", "");
+      return item;
+    });
+    let maxUserId = Math.max(...dataList);
+    console.log({ maxUserId });
+    let uniqueID = maxUserId + 1;
+    return uniqueID > 9 ? uniqueID : "0" + uniqueID;
+  },
 };
 module.exports = Utility;

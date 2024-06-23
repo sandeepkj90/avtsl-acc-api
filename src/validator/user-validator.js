@@ -14,7 +14,7 @@ const customerSchema = Joi.object({
   address: Joi.string().required(),
   role: Joi.string().valid("CUSTOMER", "EMPLOYEE", "OPERATOR").required(),
   profilePic: Joi.string().allow(""),
-  active: Joi.boolean().required(),
+  active: Joi.boolean().allow(""),
 });
 
 module.exports = customerSchema;

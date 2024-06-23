@@ -72,8 +72,7 @@ app.use("/", (req, res) => {
 });
 
 UserDAO.isUserExist({
-  userName: "sivareddy@avtsl",
-  password: "siva@avtsl",
+  userName: "AV01",
 }).then((result) => {
   if (result) console.log("Admin already registered");
   else {
@@ -83,8 +82,9 @@ UserDAO.isUserExist({
       email: "sivareddyega@gmail.com",
       password: "siva@avtsl",
       role: "SUPER-ADMIN",
-      userName: "sivareddy@avtsl",
+      userName: "AV01",
       salary: 6000,
+      status: "APPROVED",
       address: "INDIA",
       phone: 7878767678,
       profilePic: "profile_icon.jpeg",
@@ -97,3 +97,6 @@ UserDAO.isUserExist({
 app.listen(Constant.PORT, () => {
   console.log(`Listening to port ${Constant.PORT}`);
 });
+
+console.log("01" > 2);
+console.log(Math.max(...["AV01", "AV02", "AV03"]));
