@@ -65,17 +65,16 @@ function showData(...data) {
     userName,
     email,
     phone,
-    role,
     address,
+    role,
     active,
     type,
-    food,
-    rent,
-    living,
+    amount,
+    description,
     month,
     year,
     day,
-    salaryPaidId,
+    expenseId,
   ] = data;
   selectedEmp = {
     firstName: firstName,
@@ -84,7 +83,6 @@ function showData(...data) {
     email: email,
     phone: phone,
     address: address,
-    role: role,
     active: active,
   };
   if (!active) {
@@ -99,14 +97,13 @@ function showData(...data) {
   }
   $("#myModal").modal("show");
   $("#addbtn").css("display", "none");
-  $("#dataToDelete").html(salaryPaidId);
+  $("#dataToDelete").html(expenseId);
   $("#updatebtn").css("display", "block");
-  $("#rent").prop("readonly", false);
-  $("#living").prop("readonly", false);
-  $("#food").prop("readonly", false);
-  document.getElementById("food").value = food;
-  document.getElementById("living").value = living;
-  document.getElementById("rent").value = rent;
+  $("#amount").prop("readonly", false);
+  $("#description").prop("readonly", false);
+  document.getElementById("amount").value = amount;
+  document.getElementById("description").value = description;
+  document.getElementById("expId").value = expenseId;
 
   // let color= (active)?'#c3fabb':'#f8b5b5';
 
@@ -178,9 +175,8 @@ function showData(...data) {
 }
 function updateData() {
   let obj = {
-    living: document.getElementById("living").value,
-    food: document.getElementById("food").value,
-    rent: document.getElementById("rent").value,
+    amount: document.getElementById("amount").value,
+    description: document.getElementById("description").value,
     // userId: selectedEmp._id,
     // userName: selectedEmp.userName,
   };
@@ -209,14 +205,14 @@ function updateData() {
   // let params = document.getElementById("userName").value;
   let params = $("#dataToDelete").html();
   $("#register-loader").css("visibility", "visible");
-  patchData("update_salaries", payload, null, params, function (result, error) {
+  patchData("update_expenses", payload, null, params, function (result, error) {
     if (error) console.log(error);
     console.log({ "data received from": result });
     $("#register-loader").css("visibility", "hidden");
     showToastMessage(result.message, "success");
-    $("#salaryPaid").trigger("reset");
+    $("#expenseMade").trigger("reset");
     selectedEmp = {};
-    $("#type").val("NORMAL");
+    $("#type").val("PAID");
     $("#month").val(todayDate[0]);
     $("#year").val(todayDate[2]);
     $("#day").val(todayDate[1]);
@@ -252,6 +248,7 @@ function getExpenseList() {
       }</td>
                    <td>
                    ${it.userName}</td>
+                   <td>${it.userId.role}</td>
                    <td>${it.type}</td>
                    <td>${it.amount}</td>
            <td>${it.description}</td>
@@ -274,7 +271,7 @@ function getExpenseList() {
         it.userId.firstName
       }','${it.userId.lastName}','${it.userId.userName}','${
         it.userId.email
-      }','${it.userId.phone}','${it.userId.role}','${it.userId.address}',${
+      }','${it.userId.phone}','${it.userId.address}','${it.userId.role}',${
         it.userId.active
       },'${it.type}','${it.amount}','${it.description}','${it.month}','${
         it.year
@@ -469,6 +466,7 @@ function closeExpenseModal() {
   $("#day").val(todayDate[1]);
   $("#amount").val("");
   $("#description").val("");
+  $("#expId").val("");
 }
 
 // console.log()

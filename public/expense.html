@@ -162,12 +162,22 @@
                   >
                   <br />
                   <div class="form-row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-9">
                       <label for="firstName">Admin/Employee List</label>
                       <select
                         class="form-control select-design"
                         id="selectEmployee"
                       ></select>
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label for="expId">Expense ID</label>
+                      <input
+                        type="text"
+                        autocomplete="off"
+                        class="form-control"
+                        id="expId"
+                        readonly
+                      />
                     </div>
                   </div>
                   <div class="form-row">
@@ -310,6 +320,7 @@
               <th>Expense ID</th>
               <th>Name</th>
               <th>User Name</th>
+              <th>Role</th>
               <th>Type</th>
               <th>amount</th>
               <th>description</th>
