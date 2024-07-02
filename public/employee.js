@@ -259,7 +259,8 @@ function viewData(...data) {
 }
 function updateData() {
 	let activeCheck = document.getElementById("active-check").value;
-	let active = activeCheck == "on" ? true : false;
+	console.log("activeCheck", activeCheck);
+	let active = activeCheck == "on" || activeCheck ? true : false;
 
 	// let active = "";
 	// if (status == "T" || status == "t") {
