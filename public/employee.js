@@ -11,6 +11,7 @@ let todayDate = new Date()
 	})
 	.replace(",", "")
 	.split(" ");
+console.log(todayDate);
 let dayList = [
 	1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
 	23, 24, 25, 26, 27, 28, 29, 30, 31,
@@ -87,6 +88,7 @@ for (let i of [
 
 function showData(...data) {
 	console.log("data to view ", data);
+
 	let [
 		firstName,
 		lastName,
@@ -128,6 +130,7 @@ function showData(...data) {
 	$("#year").empty();
 	$("#month").empty();
 	$("#day").empty();
+	$("#userName").prop("readonly", true);
 
 	for (let item of monthList) {
 		$("#month").append($(`<option>`).val(item).text(item));
@@ -256,7 +259,9 @@ function viewData(...data) {
 	// document.getElementById("status").value = status;
 }
 function updateData() {
-	let active = document.getElementById("active-check").value;
+	let activeCheck = document.getElementById("active-check").value;
+	let active = activeCheck == "on" ? true : false;
+
 	// let active = "";
 	// if (status == "T" || status == "t") {
 	//   active = true;
@@ -315,6 +320,7 @@ function showModalWithSelect(data) {
 	$("#role").empty();
 
 	$("#year").prop("disabled", false);
+	$("#userName").prop("readonly", true);
 	$("#month").prop("disabled", false);
 	$("#day").prop("disabled", false);
 	$("#active-check").prop("disabled", false);
@@ -341,7 +347,7 @@ function showModalWithSelect(data) {
 
 	$("#month").val(todayDate[0]);
 	$("#year").val(todayDate[2]);
-	$("#day").val(todayDate[1]);
+	$("#day").val(todayDate[1] < 10 ? `0${todayDate[1]}` : todayDate[1]);
 	$("#role").val(roleList[0]);
 	$("#active-check").prop("disabled", true);
 }

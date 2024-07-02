@@ -16,49 +16,49 @@ app.use(express.static("public"));
 // console.log(process.env.MONGODB_URL);
 require("./database");
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "public/uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
+	destination: (req, file, cb) => {
+		cb(null, "public/uploads/");
+	},
+	filename: (req, file, cb) => {
+		cb(null, Date.now() + "-" + file.originalname);
+	},
 });
 const uploadStorage = multer({ storage: storage });
 // const upload = multer({ dest: '/' });
 app.post("/upload", uploadStorage.single("file"), (req, res) => {
-  res.send({ data: req.file });
+	res.send({ data: req.file });
 });
 
 app.use("/bill", (req, res) => {
-  res.sendFile(__dirname + "/public/bill.html");
+	res.sendFile(__dirname + "/public/bill.html");
 });
 app.use("/client", (req, res) => {
-  res.sendFile(__dirname + "/public/client.html");
+	res.sendFile(__dirname + "/public/client.html");
 });
 app.use("/salary", (req, res) => {
-  res.sendFile(__dirname + "/public/salary.html");
+	res.sendFile(__dirname + "/public/salary.html");
 });
 app.use("/expense", (req, res) => {
-  res.sendFile(__dirname + "/public/expense.html");
+	res.sendFile(__dirname + "/public/expense.html");
 });
 app.use("/dashboard", (req, res) => {
-  res.sendFile(__dirname + "/public/dashboard.html");
+	res.sendFile(__dirname + "/public/dashboard.html");
 });
 app.use("/report", (req, res) => {
-  res.sendFile(__dirname + "/public/report.html");
+	res.sendFile(__dirname + "/public/report.html");
 });
 app.use("/employee", (req, res) => {
-  res.sendFile(__dirname + "/public/employee.html");
+	res.sendFile(__dirname + "/public/employee.html");
 });
 app.use("/investment", (req, res) => {
-  res.sendFile(__dirname + "/public/investment.html");
+	res.sendFile(__dirname + "/public/investment.html");
 });
 app.use("/cartDetail", (req, res) => {
-  res.sendFile(__dirname + "/public/cart.html");
+	res.sendFile(__dirname + "/public/cart.html");
 });
 app.use("/srPics/:name", (req, res) => {
-  let fileName = req.params.name;
-  res.sendFile(__dirname + `/public/uploads/${fileName}`);
+	let fileName = req.params.name;
+	res.sendFile(__dirname + `/public/uploads/${fileName}`);
 });
 app.use("/users", require("./src/controller/user-controller"));
 app.use("/clients", require("./src/controller/client-controller"));
@@ -68,38 +68,37 @@ app.use("/expenses", require("./src/controller/expenses-controller"));
 app.use("/investments", require("./src/controller/investment-controller"));
 
 app.use("/", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
+	res.sendFile(__dirname + "/public/index.html");
 });
 
 UserDAO.isUserExist({
-  userName: "AV01",
+	userName: "AV01",
 }).then((result) => {
-  if (result) console.log("Admin already registered");
-  else {
-    UserDAO.register({
-      firstName: "Siva",
-      lastName: "Reddy",
-      email: "sivareddyega@gmail.com",
-      password: "siva@avtsl",
-      role: "SUPER-ADMIN",
-      userName: "AV01",
-      salary: 6000,
-      status: "APPROVED",
-      address: "INDIA",
-      phone: 7878767678,
-      profilePic: "profile_icon.jpeg",
-      year:'2024',
-      month:'07',
-      day:'21'
-
-    }).then((response) => {
-      console.log("Admin Registered successfully");
-    });
-  }
+	if (result) console.log("Admin already registered");
+	else {
+		UserDAO.register({
+			firstName: "Siva",
+			lastName: "Reddy",
+			email: "sivareddyega@gmail.com",
+			password: "siva@avtsl",
+			role: "SUPER-ADMIN",
+			userName: "AV01",
+			salary: 6000,
+			status: "APPROVED",
+			address: "INDIA",
+			phone: 7878767678,
+			profilePic: "profile_icon.jpeg",
+			year: "2024",
+			month: "July",
+			day: "21",
+		}).then((response) => {
+			console.log("Admin Registered successfully");
+		});
+	}
 });
 
 app.listen(Constant.PORT, () => {
-  console.log(`Listening to port ${Constant.PORT}`);
+	console.log(`Listening to port ${Constant.PORT}`);
 });
 
 console.log("01" > 2);
